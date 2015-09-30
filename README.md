@@ -69,14 +69,14 @@ js-priority-queue: https://github.com/adamhooper/js-priority-queue
 heap.js: https://github.com/qiao/heap.js
 
 starting dynamic queue/enqueue benchmark
-FastPriorityQueue x 7,301 ops/sec ±0.18% (103 runs sampled)
-js-priority-queue x 4,809 ops/sec ±0.32% (101 runs sampled)
-heap.js x 6,959 ops/sec ±0.18% (103 runs sampled)
+FastPriorityQueue x 7,234 ops/sec ±0.35% (102 runs sampled)
+js-priority-queue x 4,795 ops/sec ±0.23% (103 runs sampled)
+heap.js x 6,341 ops/sec ±0.28% (103 runs sampled)
 Fastest is FastPriorityQueue
 
 starting priority queue creation benchmark
-FastPriorityQueue (add) x 40,587 ops/sec ±0.38% (101 runs sampled)
-js-priority-queue x 31,018 ops/sec ±0.35% (103 runs sampled)
-heap.js x 30,907 ops/sec ±0.17% (102 runs sampled)
+FastPriorityQueue (add) x 43,279 ops/sec ±0.29% (100 runs sampled)
+js-priority-queue x 42,598 ops/sec ±0.55% (99 runs sampled)
+heap.js x 33,873 ops/sec ±0.31% (101 runs sampled)
 Fastest is FastPriorityQueue (add)
 ```

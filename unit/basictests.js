@@ -11,7 +11,7 @@ describe("FastPriorityQueue", function () {
         var b = new FastPriorityQueue(function(a, b) {
             return a - b;
         });
-        var N = 1024;
+        var N = 1024+ti;
         for(var i = 0; i < N; ++i) {
           b.add(Math.floor((Math.random() * 1000000) + 1));
         }
