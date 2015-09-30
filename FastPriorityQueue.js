@@ -96,6 +96,11 @@ FastPriorityQueue.prototype.poll = function(i) {
     return ans;
 }
 
+// recover unused memory (for long-running priority queues)
+FastPriorityQueue.prototype.trim = function() {
+    this.array = this.array.slice(0,this.size);
+}
+
 // Check whether the heap is empty
 FastPriorityQueue.prototype.isEmpty = function(i) {
     return this.size == 0;
