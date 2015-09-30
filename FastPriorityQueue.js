@@ -53,7 +53,7 @@ FastPriorityQueue.prototype._percolateUp = function(i) {
 }
 
 // for internal use
-FastPriorityQueue.prototype._percolateDown = function(i) {
+FastPriorityQueue.prototype._percolateDown2 = function(i) {
     var size = this.array.length;
     var ai = this.array[i];
     var l = (i << 1) + 1;
@@ -72,6 +72,31 @@ FastPriorityQueue.prototype._percolateDown = function(i) {
     var p = (smallest - 1) >> 1;
     for (; (smallest > 0) && (this.compare( ai, this.array[p]) < 0); smallest = p, p = (smallest - 1) >> 1) {
         this.array[smallest] = this.array[p];
+    }
+};
+
+
+
+// for internal use
+FastPriorityQueue.prototype._percolateDown = function(i) {
+    var size = this.array.length;
+    var ai = this.array[i];
+    var l = (i << 1) + 1;
+    while (l < size) {
+        var r = l + 1;
+        i = l;
+        if(r < size) {
+            if (this.compare(this.array[r], this.array[l]) < 0)
+                i = r;
+        }
+        this.array[(i - 1) >> 1] = this.array[i];
+        //i = i;
+        l = (i << 1) + 1;
+    }
+    this.array[i] = ai;
+    var p = (i - 1) >> 1;
+    for (; (i > 0) && (this.compare( ai, this.array[p]) < 0); i = p, p = (i - 1) >> 1) {
+        this.array[i] = this.array[p];
     }
 };
 
@@ -95,6 +120,18 @@ FastPriorityQueue.prototype.poll = function(i) {
     return ans;
 }
 
+// remove the element on top of the heap (a smallest element)
+// runs in logarithmic time
+FastPriorityQueue.prototype.poll2 = function(i) {
+    var ans = this.array[0];
+    if(this.array.length > 1) {
+        this.array[0] = this.array.pop();
+        this._percolateDown2(0|0);
+    } else  {
+        this.array.pop();
+    }
+    return ans;
+}
 // Check whether the heap is empty
 FastPriorityQueue.prototype.isEmpty = function(i) {
     return this.array.length == 0;

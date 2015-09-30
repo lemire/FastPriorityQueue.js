@@ -177,7 +177,20 @@ function QueueEnqueueBench() {
     console.log("starting dynamic queue/enqueue benchmark");
     var suite = new Benchmark.Suite();
     // add tests
-    var ms = suite.add('FastPriorityQueue', function() {
+    var ms = suite.add('FastPriorityQueue2', function() {
+        var b = new FastPriorityQueue(function(a, b) {
+            return a - b;
+        });
+        for(var i = 0 ; i < 128  ; i++) {
+            b.add((3*i+5)%1024);
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.add((3*i+5)%1024);
+            b.poll2();
+        }
+        return b;
+    }  )
+.add('FastPriorityQueue', function() {
         var b = new FastPriorityQueue(function(a, b) {
             return a - b;
         });
@@ -232,6 +245,8 @@ function QueueEnqueueBench() {
 
 
 var main = function() {
+  QueueEnqueueBench();
+
     console.log("Platform: "+process.platform+" "+os.release()+" "+process.arch);
     console.log(os.cpus()[0]["model"]);
     console.log("Node version "+process.versions.node+", v8 version "+process.versions.v8);
