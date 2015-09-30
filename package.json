@@ -1,0 +1,30 @@
+{
+  "name": "fastpriorityqueue",
+  "description": "Fast heap-based priority queue in JavaScript",
+  "keywords": [
+    "heap",
+    "priority queue",
+    "performance"
+  ],
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lemire/FastPriorityQueue.js.git"
+  },
+  "main": "FastPriorityQueue.js",
+  "scripts": {
+    "test": "mocha unit/basictests.js"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/lemire/FastPriorityQueue.js/issues"
+  },
+  "homepage": "https://github.com/lemire/FastPriorityQueue.js#readme",
+  "dependencies": {
+    "benchmark": "^1.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.2"
+  },
+  "author": "Daniel Lemire <lemire@gmail.com> (http://lemire.me/en/)"
+}
