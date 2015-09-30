@@ -25,7 +25,7 @@ function CreateBench() {
     }  )
 
     .add('js-priority-queue', function() {
-        var b = new PriorityQueue({ comparator: function(a, b) {
+var b = new PriorityQueue({ comparator: function(a, b) {
             return b - a;
         }
                                   });
@@ -52,7 +52,7 @@ function CreateBench() {
         console.log('Fastest is ' + this.filter('fastest').pluck('name'));
     })
     // run async
-    .run({ 'async': false });
+.run({ 'async': false });
 }
 
 function HugeQueueEnqueueBench() {
@@ -74,7 +74,7 @@ function HugeQueueEnqueueBench() {
     }  )
 
     .add('js-priority-queue', function() {
-        var b = new PriorityQueue({ comparator: function(a, b) {
+var b = new PriorityQueue({ comparator: function(a, b) {
             return b - a;
         }
                                   });
@@ -109,7 +109,7 @@ function HugeQueueEnqueueBench() {
         console.log('Fastest is ' + this.filter('fastest').pluck('name'));
     })
     // run async
-    .run({ 'async': false });
+.run({ 'async': false });
 }
 
 
@@ -133,7 +133,7 @@ function TinyQueueEnqueueBench() {
     }  )
 
     .add('js-priority-queue', function() {
-        var b = new PriorityQueue({ comparator: function(a, b) {
+var b = new PriorityQueue({ comparator: function(a, b) {
             return b - a;
         }
                                   });
@@ -168,7 +168,7 @@ function TinyQueueEnqueueBench() {
         console.log('Fastest is ' + this.filter('fastest').pluck('name'));
     })
     // run async
-    .run({ 'async': false });
+.run({ 'async': false });
 }
 
 
@@ -177,43 +177,31 @@ function QueueEnqueueBench() {
     console.log("starting dynamic queue/enqueue benchmark");
     var suite = new Benchmark.Suite();
     // add tests
-    var ms = suite.add('FastPriorityQueue2', function() {
+    var ms = suite
+    .add('FastPriorityQueue', function() {
         var b = new FastPriorityQueue(function(a, b) {
             return a - b;
         });
         for(var i = 0 ; i < 128  ; i++) {
-            b.add((3*i+5)%1024);
+            b.add((33*i+5)%1024);
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.add((3*i+5)%1024);
-            b.poll2();
-        }
-        return b;
-    }  )
-.add('FastPriorityQueue', function() {
-        var b = new FastPriorityQueue(function(a, b) {
-            return a - b;
-        });
-        for(var i = 0 ; i < 128  ; i++) {
-            b.add((3*i+5)%1024);
-        }
-        for(i = 128 ; i < 128 * 10  ; i++) {
-            b.add((3*i+5)%1024);
+            b.add((33*i+5)%1024);
             b.poll();
         }
         return b;
     }  )
 
     .add('js-priority-queue', function() {
-        var b = new PriorityQueue({ comparator: function(a, b) {
+var b = new PriorityQueue({ comparator: function(a, b) {
             return b - a;
         }
                                   });
         for(var i = 0 ; i < 128  ; i++) {
-            b.queue((3*i+5)%1024);
+            b.queue((33*i+5)%1024);
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.queue((3*i+5)%1024);
+            b.queue((33*i+5)%1024);
             b.dequeue();
         }
         return b;
@@ -223,10 +211,10 @@ function QueueEnqueueBench() {
             return a - b;
         });
         for(var i = 0 ; i < 128  ; i++) {
-            b.push((3*i+5)%1024);
+            b.push((33*i+5)%1024);
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.push((3*i+5)%1024);
+            b.push((33*i+5)%1024);
             b.pop();
         }
         return b;
@@ -240,12 +228,11 @@ function QueueEnqueueBench() {
         console.log('Fastest is ' + this.filter('fastest').pluck('name'));
     })
     // run async
-    .run({ 'async': false });
+.run({ 'async': false });
 }
 
 
 var main = function() {
-  QueueEnqueueBench();
 
     console.log("Platform: "+process.platform+" "+os.release()+" "+process.arch);
     console.log(os.cpus()[0]["model"]);
@@ -255,13 +242,11 @@ var main = function() {
     console.log("js-priority-queue: https://github.com/adamhooper/js-priority-queue");
     console.log("heap.js: https://github.com/qiao/heap.js");
     console.log("");
+    QueueEnqueueBench();
+    console.log("");
     TinyQueueEnqueueBench();
     console.log("");
     HugeQueueEnqueueBench();
-    console.log("");
-    QueueEnqueueBench();
-    console.log("");
-    CreateBench();
 }
 
 if (require.main === module) {

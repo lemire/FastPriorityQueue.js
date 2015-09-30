@@ -26,6 +26,7 @@ var defaultcomparator = function(a,b) {
 
 function FastPriorityQueue (comparator) {
     this.array = new Array();
+    this.size = 0;
     this.compare = (typeof comparator === 'function')
                    ?  comparator : defaultcomparator;
 }
@@ -33,8 +34,8 @@ function FastPriorityQueue (comparator) {
 // Add an element the the queue
 // runs in O(log n) time
 FastPriorityQueue.prototype.add = function(myval) {
-    this.array.push(myval);
-    var i = this.array.length - 1;
+    var i = this.size;
+    this.array[this.size++] = myval;
     var p = (i - 1) >> 1;
     for (; (i > 0) && (this.compare(myval, this.array[p]) < 0); i = p, p = (i - 1) >> 1) {
         this.array[i] = this.array[p];
@@ -52,34 +53,10 @@ FastPriorityQueue.prototype._percolateUp = function(i) {
     this.array[i] = myval;
 }
 
-// for internal use
-FastPriorityQueue.prototype._percolateDown2 = function(i) {
-    var size = this.array.length;
-    var ai = this.array[i];
-    var l = (i << 1) + 1;
-    while (l < size) {
-        var r = l + 1;
-        var smallest = l;
-        if(r < size) {
-            if (this.compare(this.array[r], this.array[l]) < 0)
-                smallest = r;
-        }
-        this.array[i] = this.array[smallest];
-        i = smallest;
-        l = (smallest << 1) + 1;
-    }
-    this.array[smallest] = ai;
-    var p = (smallest - 1) >> 1;
-    for (; (smallest > 0) && (this.compare( ai, this.array[p]) < 0); smallest = p, p = (smallest - 1) >> 1) {
-        this.array[smallest] = this.array[p];
-    }
-};
-
-
 
 // for internal use
 FastPriorityQueue.prototype._percolateDown = function(i) {
-    var size = this.array.length;
+    var size = this.size;
     var ai = this.array[i];
     var l = (i << 1) + 1;
     while (l < size) {
@@ -90,7 +67,6 @@ FastPriorityQueue.prototype._percolateDown = function(i) {
                 i = r;
         }
         this.array[(i - 1) >> 1] = this.array[i];
-        //i = i;
         l = (i << 1) + 1;
     }
     this.array[i] = ai;
@@ -111,35 +87,18 @@ FastPriorityQueue.prototype.peek = function(t) {
 // runs in logarithmic time
 FastPriorityQueue.prototype.poll = function(i) {
     var ans = this.array[0];
-    if(this.array.length > 1) {
-        this.array[0] = this.array.pop();
+    if(this.size > 1) {
+        this.array[0] = this.array[--this.size];
         this._percolateDown(0|0);
     } else  {
-        this.array.pop();
+        --this.size;
     }
     return ans;
 }
 
-// remove the element on top of the heap (a smallest element)
-// runs in logarithmic time
-FastPriorityQueue.prototype.poll2 = function(i) {
-    var ans = this.array[0];
-    if(this.array.length > 1) {
-        this.array[0] = this.array.pop();
-        this._percolateDown2(0|0);
-    } else  {
-        this.array.pop();
-    }
-    return ans;
-}
 // Check whether the heap is empty
 FastPriorityQueue.prototype.isEmpty = function(i) {
-    return this.array.length == 0;
-}
-
-// Return the size of the heap
-FastPriorityQueue.prototype.size = function(i) {
-    return this.array.length;
+    return this.size == 0;
 }
 
 // just for illustration purposes
