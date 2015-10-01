@@ -54,9 +54,9 @@ Is it faster?
 
 It tends to fare well against the competition :
 
+
 ```
-$ node test.js
-Platform: linux 3.13.0-37-generic x64
+$ node test.jsPlatform: linux 3.13.0-37-generic x64
 Intel(R) Core(TM) i7-4770 CPU @ 3.40GHz
 Node version 0.12.7, v8 version 3.28.71.19
 
@@ -66,22 +66,17 @@ heap.js: https://github.com/qiao/heap.js
 binaryheapx: https://github.com/xudafeng/BinaryHeap
 priority_queue: https://github.com/agnat/js_priority_queue
 js-heap: https://github.com/thauburger/js-heap
+queue-priority: https://github.com/augustohp/Priority-Queue-NodeJS
+priorityqueuejs: https://github.com/janogonzalez/priorityqueuejs
 
 starting dynamic queue/enqueue benchmark
-FastPriorityQueue x 19,345 ops/sec ±0.35% (102 runs sampled)
-js-priority-queue x 4,760 ops/sec ±0.26% (101 runs sampled)
-heap.js x 6,453 ops/sec ±0.31% (103 runs sampled)
-binaryheapx x 4,330 ops/sec ±0.22% (102 runs sampled)
-priority_queue x 3,465 ops/sec ±0.68% (101 runs sampled)
-js-heap x 505 ops/sec ±0.05% (98 runs sampled)
-Fastest is FastPriorityQueue
-
-starting dynamic tiny queue/enqueue benchmark
-FastPriorityQueue x 37,769 ops/sec ±0.26% (103 runs sampled)
-js-priority-queue x 11,502 ops/sec ±0.43% (103 runs sampled)
-heap.js x 10,429 ops/sec ±0.24% (102 runs sampled)
-binaryheapx x 10,386 ops/sec ±0.25% (104 runs sampled)
-priority_queue x 3,886 ops/sec ±6.79% (72 runs sampled)
-js-heap x 1,148 ops/sec ±0.18% (101 runs sampled)
+FastPriorityQueue x 19,780 ops/sec ±0.39% (103 runs sampled)
+js-priority-queue x 4,983 ops/sec ±0.32% (103 runs sampled)
+heap.js x 6,629 ops/sec ±0.36% (103 runs sampled)
+binaryheapx x 4,298 ops/sec ±0.15% (102 runs sampled)
+priority_queue x 3,450 ops/sec ±0.67% (101 runs sampled)
+js-heap x 506 ops/sec ±0.17% (98 runs sampled)
+queue-priority x 408 ops/sec ±0.79% (93 runs sampled)
+priorityqueuejs x 6,268 ops/sec ±0.35% (103 runs sampled)
 Fastest is FastPriorityQueue
 ```
