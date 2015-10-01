@@ -22,10 +22,10 @@ var defaultcomparator = function(a,b) {
   return a < b ? -1 : a > b ? 1 : 0;
 }
 
-function FastPriorityQueue () {
+function FastPriorityQueue (comparator) {
   this.array = [];
   this.size = 0;
-  this.compare = defaultcomparator;
+  this.compare = defaultcomparator || comparator;
 }
 
 
