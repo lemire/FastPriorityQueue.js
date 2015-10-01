@@ -27,6 +27,8 @@ while(!x.isEmpty()) {
 }
 ```
 
+You can also provide the constructor with a comparator function.
+
 If you are using node.js, you need to import the module:
 
 ```javascript
