@@ -12,6 +12,14 @@ var binaryheapx = require('binaryheapx').Constructor;
 var pq = require('priority_queue');
 var jsHeap = require('js-heap');
 
+// very fast semi-random function
+function rand(i) {
+  i = i + 10000;
+  i = i ^ (i << 16);
+  i = (i >> 5) ^ i ;
+  return i & 0xFF;
+}
+
 function basictest() {
     var b1 = new FastPriorityQueue(function(a, b) {
         return a - b;
@@ -20,12 +28,12 @@ function basictest() {
         return a - b;
     });
     for(var i = 0 ; i < 2000  ; i++) {
-        b1.add((33*i+5)%1024);
-        b2.push((33*i+5)%1024);
+        b1.add(rand(i));
+        b2.push(rand(i));
     }
     for(i = 128 ; i < 128 * 10  ; i++) {
-        b1.add((33*i+5)%1024);
-        b2.push((33*i+5)%1024);
+        b1.add(rand(i));
+        b2.push(rand(i));
         var x1 = b1.poll();
         var x2 = b2.pop();
         if(x1 != x2) throw "bug "+x1+" "+x2;
@@ -43,25 +51,24 @@ function QueueEnqueueBench() {
             return a - b;
         });
         for(var i = 0 ; i < 128  ; i++) {
-            b.add((33*i+5)%1024);
+            b.add(rand(i));
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.add((33*i+5)%1024);
+            b.add(rand(i));
             b.poll();
         }
         return b;
     }  )
-
     .add('js-priority-queue', function() {
         var b = new PriorityQueue({ comparator: function(a, b) {
             return b - a;
         }
                                   });
         for(var i = 0 ; i < 128  ; i++) {
-            b.queue((33*i+5)%1024);
+            b.queue(rand(i));
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.queue((33*i+5)%1024);
+            b.queue(rand(i));
             b.dequeue();
         }
         return b;
@@ -71,10 +78,10 @@ function QueueEnqueueBench() {
             return a - b;
         });
         for(var i = 0 ; i < 128  ; i++) {
-            b.push((33*i+5)%1024);
+            b.push(rand(i));
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.push((33*i+5)%1024);
+            b.push(rand(i));
             b.pop();
         }
         return b;
@@ -82,10 +89,10 @@ function QueueEnqueueBench() {
     .add('binaryheapx', function() {
         var b = new binaryheapx();
         for(var i = 0 ; i < 128  ; i++) {
-            b.add((33*i+5)%1024);
+            b.add(rand(i));
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.add((33*i+5)%1024);
+            b.add(rand(i));
             b.pop();
         }
         return b;
@@ -93,10 +100,10 @@ function QueueEnqueueBench() {
     .add('priority_queue', function() {
         var b = new pq.PriorityQueue();
         for(var i = 0 ; i < 128  ; i++) {
-            b.push((33*i+5)%1024);
+            b.push(rand(i));
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.push((33*i+5)%1024);
+            b.push(rand(i));
             b.shift();
         }
         return b;
@@ -104,10 +111,10 @@ function QueueEnqueueBench() {
     .add('js-heap', function() {
         var b = new jsHeap();
         for(var i = 0 ; i < 128  ; i++) {
-            b.push((33*i+5)%1024);
+            b.push(rand(i));
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.push((33*i+5)%1024);
+            b.push(rand(i));
             b.pop();
         }
         return b;
@@ -134,10 +141,10 @@ function TinyQueueEnqueueBench() {
             return a - b;
         });
         for(var i = 0 ; i < 12  ; i++) {
-            b.add((33*i+5)%1024);
+            b.add(rand(i));
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.add((33*i+5)%1024);
+            b.add(rand(i));
             b.poll();
         }
         return b;
@@ -149,10 +156,10 @@ function TinyQueueEnqueueBench() {
         }
                                   });
         for(var i = 0 ; i < 12  ; i++) {
-            b.queue((33*i+5)%1024);
+            b.queue(rand(i));
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.queue((33*i+5)%1024);
+            b.queue(rand(i));
             b.dequeue();
         }
         return b;
@@ -162,10 +169,10 @@ function TinyQueueEnqueueBench() {
             return a - b;
         });
         for(var i = 0 ; i < 12  ; i++) {
-            b.push((33*i+5)%1024);
+            b.push(rand(i));
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.push((33*i+5)%1024);
+            b.push(rand(i));
             b.pop();
         }
         return b;
@@ -173,10 +180,10 @@ function TinyQueueEnqueueBench() {
     .add('binaryheapx', function() {
         var b = new binaryheapx();
         for(var i = 0 ; i < 12  ; i++) {
-            b.add((33*i+5)%1024);
+            b.add(rand(i));
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.add((33*i+5)%1024);
+            b.add(rand(i));
             b.pop();
         }
         return b;
@@ -184,10 +191,10 @@ function TinyQueueEnqueueBench() {
     .add('priority_queue', function() {
         var b = new pq.PriorityQueue();
         for(var i = 0 ; i < 12  ; i++) {
-            b.push((33*i+5)%1024);
+            b.push(rand(i));
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.push((33*i+5)%1024);
+            b.push(rand(i));
             b.shift();
         }
         return b;
@@ -195,10 +202,10 @@ function TinyQueueEnqueueBench() {
     .add('js-heap', function() {
         var b = new jsHeap();
         for(var i = 0 ; i < 12  ; i++) {
-            b.push((33*i+5)%1024);
+            b.push(rand(i));
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.push((33*i+5)%1024);
+            b.push(rand(i));
             b.pop();
         }
         return b;
