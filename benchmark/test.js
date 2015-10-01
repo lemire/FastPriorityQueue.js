@@ -11,6 +11,8 @@ var os = require('os');
 var binaryheapx = require('binaryheapx').Constructor;
 var pq = require('priority_queue');
 var jsHeap = require('js-heap');
+var qp = require("queue-priority");
+var priorityqueuejs = require("priorityqueuejs");
 
 // very fast semi-random function
 function rand(i) {
@@ -119,6 +121,29 @@ function QueueEnqueueBench() {
         }
         return b;
     }  )
+    .add('queue-priority', function() {
+        var b = new qp();
+        for(var i = 0 ; i < 128  ; i++) {
+            b.push(rand(i));
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.push(rand(i));
+            b.pop();
+        }
+        return b;
+    }  )
+    .add('priorityqueuejs', function() {
+        var b = new priorityqueuejs();
+        for(var i = 0 ; i < 128  ; i++) {
+            b.enq(rand(i));
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.enq(rand(i));
+            b.deq();
+        }
+        return b;
+    }  )
+
     // add listeners
     .on('cycle', function(event) {
         console.log(String(event.target));
@@ -131,95 +156,6 @@ function QueueEnqueueBench() {
 }
 
 
-
-function TinyQueueEnqueueBench() {
-    console.log("starting dynamic tiny queue/enqueue benchmark");
-    var suite = new Benchmark.Suite();
-    // add tests
-    var ms = suite.add('FastPriorityQueue', function() {
-        var b = new FastPriorityQueue(function(a, b) {
-            return a - b;
-        });
-        for(var i = 0 ; i < 12  ; i++) {
-            b.add(rand(i));
-        }
-        for(i = 128 ; i < 128 * 10  ; i++) {
-            b.add(rand(i));
-            b.poll();
-        }
-        return b;
-    }  )
-
-    .add('js-priority-queue', function() {
-        var b = new PriorityQueue({ comparator: function(a, b) {
-            return b - a;
-        }
-                                  });
-        for(var i = 0 ; i < 12  ; i++) {
-            b.queue(rand(i));
-        }
-        for(i = 128 ; i < 128 * 10  ; i++) {
-            b.queue(rand(i));
-            b.dequeue();
-        }
-        return b;
-    }  )
-    .add('heap.js', function() {
-        var b = new Heap(function(a, b) {
-            return a - b;
-        });
-        for(var i = 0 ; i < 12  ; i++) {
-            b.push(rand(i));
-        }
-        for(i = 128 ; i < 128 * 10  ; i++) {
-            b.push(rand(i));
-            b.pop();
-        }
-        return b;
-    }  )
-    .add('binaryheapx', function() {
-        var b = new binaryheapx();
-        for(var i = 0 ; i < 12  ; i++) {
-            b.add(rand(i));
-        }
-        for(i = 128 ; i < 128 * 10  ; i++) {
-            b.add(rand(i));
-            b.pop();
-        }
-        return b;
-    }  )
-    .add('priority_queue', function() {
-        var b = new pq.PriorityQueue();
-        for(var i = 0 ; i < 12  ; i++) {
-            b.push(rand(i));
-        }
-        for(i = 128 ; i < 128 * 10  ; i++) {
-            b.push(rand(i));
-            b.shift();
-        }
-        return b;
-    }  )
-    .add('js-heap', function() {
-        var b = new jsHeap();
-        for(var i = 0 ; i < 12  ; i++) {
-            b.push(rand(i));
-        }
-        for(i = 128 ; i < 128 * 10  ; i++) {
-            b.push(rand(i));
-            b.pop();
-        }
-        return b;
-    }  )
-    // add listeners
-    .on('cycle', function(event) {
-        console.log(String(event.target));
-    })
-    .on('complete', function() {
-        console.log('Fastest is ' + this.filter('fastest').pluck('name'));
-    })
-    // run async
-    .run({ 'async': false });
-}
 
 
 
@@ -236,10 +172,10 @@ var main = function() {
     console.log("binaryheapx: https://github.com/xudafeng/BinaryHeap");
     console.log("priority_queue: https://github.com/agnat/js_priority_queue");
     console.log("js-heap: https://github.com/thauburger/js-heap");
+    console.log("queue-priority: https://github.com/augustohp/Priority-Queue-NodeJS");
+    console.log("priorityqueuejs: https://github.com/janogonzalez/priorityqueuejs");
     console.log("");
     QueueEnqueueBench();
-    console.log("");
-    TinyQueueEnqueueBench();
     console.log("");
 }
 

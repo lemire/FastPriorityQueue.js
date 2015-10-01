@@ -4,5 +4,7 @@ npm install benchmark
 npm install binaryheapx
 npm install priority_queue
 npm install js-heap
+npm install queue-priority
+npm install priorityqueuejs
 
 node test.js
