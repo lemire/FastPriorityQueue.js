@@ -8,18 +8,25 @@ var PriorityQueue = require("js-priority-queue");
 var Heap = require('heap');
 var Benchmark = require('benchmark');
 var os = require('os');
+var binaryheapx = require('binaryheapx').Constructor;
+var pq = require('priority_queue');
+var jsHeap = require('js-heap');
 
-
-function CreateBench() {
-    console.log("starting priority queue creation benchmark");
+function QueueEnqueueBench() {
+    console.log("starting dynamic queue/enqueue benchmark");
     var suite = new Benchmark.Suite();
     // add tests
-    var ms = suite.add('FastPriorityQueue (add)', function() {
+    var ms = suite
+    .add('FastPriorityQueue', function() {
         var b = new FastPriorityQueue(function(a, b) {
             return a - b;
         });
-        for(var i = 0 ; i < 1024  ; i++) {
-            b.add((33*i+5)%55);
+        for(var i = 0 ; i < 128  ; i++) {
+            b.add((33*i+5)%1024);
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.add((33*i+5)%1024);
+            b.poll();
         }
         return b;
     }  )
@@ -29,18 +36,58 @@ var b = new PriorityQueue({ comparator: function(a, b) {
             return b - a;
         }
                                   });
-        for(var i = 0 ; i < 1024  ; i++) {
-            b.queue((33*i+5)%55);
+        for(var i = 0 ; i < 128  ; i++) {
+            b.queue((33*i+5)%1024);
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.queue((33*i+5)%1024);
+            b.dequeue();
         }
         return b;
     }  )
-
     .add('heap.js', function() {
         var b = new Heap(function(a, b) {
             return a - b;
         });
-        for(var i = 0 ; i < 1024  ; i++) {
-            b.push((33*i+5)%55);
+        for(var i = 0 ; i < 128  ; i++) {
+            b.push((33*i+5)%1024);
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.push((33*i+5)%1024);
+            b.pop();
+        }
+        return b;
+    }  )
+    .add('binaryheapx', function() {
+        var b = new binaryheapx();
+        for(var i = 0 ; i < 128  ; i++) {
+            b.add((33*i+5)%1024);
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.add((33*i+5)%1024);
+            b.pop();
+        }
+        return b;
+    }  )
+    .add('priority_queue', function() {
+        var b = new pq.PriorityQueue();
+        for(var i = 0 ; i < 128  ; i++) {
+            b.push((33*i+5)%1024);
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.push((33*i+5)%1024);
+            b.shift();
+        }
+        return b;
+    }  )
+    .add('js-heap', function() {
+        var b = new jsHeap();
+        for(var i = 0 ; i < 128  ; i++) {
+            b.push((33*i+5)%1024);
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.push((33*i+5)%1024);
+            b.pop();
         }
         return b;
     }  )
@@ -54,6 +101,9 @@ var b = new PriorityQueue({ comparator: function(a, b) {
     // run async
 .run({ 'async': false });
 }
+
+
+
 
 function HugeQueueEnqueueBench() {
     console.log("starting dynamic huge queue/enqueue benchmark");
@@ -100,7 +150,39 @@ var b = new PriorityQueue({ comparator: function(a, b) {
         }
         return b;
     }  )
-
+    .add('binaryheapx', function() {
+        var b = new binaryheapx();
+        for(var i = 0 ; i < 12000  ; i++) {
+            b.add((33*i+5)%1024);
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.add((33*i+5)%1024);
+            b.pop();
+        }
+        return b;
+    }  )
+    .add('priority_queue', function() {
+        var b = new pq.PriorityQueue();
+        for(var i = 0 ; i < 12000  ; i++) {
+            b.push((33*i+5)%1024);
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.push((33*i+5)%1024);
+            b.shift();
+        }
+        return b;
+    }  )
+    .add('js-heap', function() {
+        var b = new jsHeap();
+        for(var i = 0 ; i < 12000  ; i++) {
+            b.push((33*i+5)%1024);
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.push((33*i+5)%1024);
+            b.pop();
+        }
+        return b;
+    }  )
     // add listeners
     .on('cycle', function(event) {
         console.log(String(event.target));
@@ -159,58 +241,31 @@ var b = new PriorityQueue({ comparator: function(a, b) {
         }
         return b;
     }  )
-
-    // add listeners
-    .on('cycle', function(event) {
-        console.log(String(event.target));
-    })
-    .on('complete', function() {
-        console.log('Fastest is ' + this.filter('fastest').pluck('name'));
-    })
-    // run async
-.run({ 'async': false });
-}
-
-
-
-function QueueEnqueueBench() {
-    console.log("starting dynamic queue/enqueue benchmark");
-    var suite = new Benchmark.Suite();
-    // add tests
-    var ms = suite
-    .add('FastPriorityQueue', function() {
-        var b = new FastPriorityQueue(function(a, b) {
-            return a - b;
-        });
-        for(var i = 0 ; i < 128  ; i++) {
+    .add('binaryheapx', function() {
+        var b = new binaryheapx();
+        for(var i = 0 ; i < 12  ; i++) {
             b.add((33*i+5)%1024);
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
             b.add((33*i+5)%1024);
-            b.poll();
+            b.pop();
         }
         return b;
     }  )
-
-    .add('js-priority-queue', function() {
-var b = new PriorityQueue({ comparator: function(a, b) {
-            return b - a;
-        }
-                                  });
-        for(var i = 0 ; i < 128  ; i++) {
-            b.queue((33*i+5)%1024);
+    .add('priority_queue', function() {
+        var b = new pq.PriorityQueue();
+        for(var i = 0 ; i < 12  ; i++) {
+            b.push((33*i+5)%1024);
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
-            b.queue((33*i+5)%1024);
-            b.dequeue();
+            b.push((33*i+5)%1024);
+            b.shift();
         }
         return b;
     }  )
-    .add('heap.js', function() {
-        var b = new Heap(function(a, b) {
-            return a - b;
-        });
-        for(var i = 0 ; i < 128  ; i++) {
+    .add('js-heap', function() {
+        var b = new jsHeap();
+        for(var i = 0 ; i < 12  ; i++) {
             b.push((33*i+5)%1024);
         }
         for(i = 128 ; i < 128 * 10  ; i++) {
@@ -219,7 +274,6 @@ var b = new PriorityQueue({ comparator: function(a, b) {
         }
         return b;
     }  )
-
     // add listeners
     .on('cycle', function(event) {
         console.log(String(event.target));
@@ -232,8 +286,9 @@ var b = new PriorityQueue({ comparator: function(a, b) {
 }
 
 
-var main = function() {
 
+
+var main = function() {
     console.log("Platform: "+process.platform+" "+os.release()+" "+process.arch);
     console.log(os.cpus()[0]["model"]);
     console.log("Node version "+process.versions.node+", v8 version "+process.versions.v8);
@@ -241,6 +296,9 @@ var main = function() {
     console.log("Comparing againsts: ");
     console.log("js-priority-queue: https://github.com/adamhooper/js-priority-queue");
     console.log("heap.js: https://github.com/qiao/heap.js");
+    console.log("binaryheapx: https://github.com/xudafeng/BinaryHeap");
+    console.log("priority_queue: https://github.com/agnat/js_priority_queue");
+    console.log("js-heap: https://github.com/thauburger/js-heap");
     console.log("");
     QueueEnqueueBench();
     console.log("");
