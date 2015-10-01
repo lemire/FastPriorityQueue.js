@@ -66,21 +66,20 @@ priority_queue: https://github.com/agnat/js_priority_queue
 js-heap: https://github.com/thauburger/js-heap
 
 starting dynamic queue/enqueue benchmark
-FastPriorityQueue x 7,039 ops/sec ±0.09% (102 runs sampled)
-js-priority-queue x 4,965 ops/sec ±0.44% (103 runs sampled)
-heap.js x 6,488 ops/sec ±0.38% (102 runs sampled)
-binaryheapx x 4,246 ops/sec ±0.19% (102 runs sampled)
-priority_queue x 3,487 ops/sec ±0.66% (100 runs sampled)
-js-heap x 512 ops/sec ±0.24% (99 runs sampled)
+FastPriorityQueue x 19,345 ops/sec ±0.35% (102 runs sampled)
+js-priority-queue x 4,760 ops/sec ±0.26% (101 runs sampled)
+heap.js x 6,453 ops/sec ±0.31% (103 runs sampled)
+binaryheapx x 4,330 ops/sec ±0.22% (102 runs sampled)
+priority_queue x 3,465 ops/sec ±0.68% (101 runs sampled)
+js-heap x 505 ops/sec ±0.05% (98 runs sampled)
 Fastest is FastPriorityQueue
 
 starting dynamic tiny queue/enqueue benchmark
-FastPriorityQueue x 14,131 ops/sec ±0.25% (104 runs sampled)
-js-priority-queue x 10,731 ops/sec ±0.95% (100 runs sampled)
-heap.js x 9,852 ops/sec ±0.13% (103 runs sampled)
-binaryheapx x 9,477 ops/sec ±0.55% (103 runs sampled)
-priority_queue x 4,117 ops/sec ±6.93% (79 runs sampled)
-js-heap x 989 ops/sec ±0.40% (99 runs sampled)
+FastPriorityQueue x 37,769 ops/sec ±0.26% (103 runs sampled)
+js-priority-queue x 11,502 ops/sec ±0.43% (103 runs sampled)
+heap.js x 10,429 ops/sec ±0.24% (102 runs sampled)
+binaryheapx x 10,386 ops/sec ±0.25% (104 runs sampled)
+priority_queue x 3,886 ops/sec ±6.79% (72 runs sampled)
+js-heap x 1,148 ops/sec ±0.18% (101 runs sampled)
 Fastest is FastPriorityQueue
-
 ```
