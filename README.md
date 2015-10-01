@@ -25,12 +25,6 @@ x.add(3);
 while(!x.isEmpty()) {
     console.log(x.poll());// output values starting from the smallest
 }
-
-// you can also provide a custom comparator:
-
-var y = new FastPriorityQueue(function(a, b) {
-    return a - b;
-});
 ```
 
 If you are using node.js, you need to import the module:

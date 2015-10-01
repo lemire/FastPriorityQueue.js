@@ -6,9 +6,7 @@
  * Speed-optimized heap-based priority queue for modern browsers and JavaScript engines.
  *
  * Usage :
-         var x = new FastPriorityQueue(function(a, b) {
-             return a - b;
-         });
+         var x = new FastPriorityQueue();
          x.add(1);
          x.add(0);
          x.add(5);
@@ -21,15 +19,15 @@
 "use strict";
 
 var defaultcomparator = function(a,b) {
-    return (a == b) ? 0 : ((a > b) ? 1 : -1);
+  return a < b ? -1 : a > b ? 1 : 0;
 }
 
-function FastPriorityQueue (comparator) {
-    this.array = new Array();
-    this.size = 0;
-    this.compare = (typeof comparator === 'function')
-                   ?  comparator : defaultcomparator;
+function FastPriorityQueue () {
+  this.array = [];
+  this.size = 0;
+  this.compare = defaultcomparator;
 }
+
 
 // Add an element the the queue
 // runs in O(log n) time
@@ -42,6 +40,14 @@ FastPriorityQueue.prototype.add = function(myval) {
     }
     this.array[i] = myval;
 }
+
+// replace the content of the heap by provided array and "heapifies it"
+FastPriorityQueue.prototype.heapify = function(arr) {
+  this.array = arr;
+  this.size = arr.length;
+  for (var i = (this.size >> 1); i >= 0; i--) this._percolateDown(i);
+}
+
 
 // for internal use
 FastPriorityQueue.prototype._percolateUp = function(i) {
@@ -74,6 +80,7 @@ FastPriorityQueue.prototype._percolateDown = function(i) {
     }
     this.array[i] = ai;
 };
+
 
 //Look at the top of the queue (a smallest element)
 // executes in constant time
