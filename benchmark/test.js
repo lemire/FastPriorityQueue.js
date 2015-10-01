@@ -12,6 +12,27 @@ var binaryheapx = require('binaryheapx').Constructor;
 var pq = require('priority_queue');
 var jsHeap = require('js-heap');
 
+function basictest() {
+    var b1 = new FastPriorityQueue(function(a, b) {
+        return a - b;
+    });
+    var b2 = new Heap(function(a, b) {
+        return a - b;
+    });
+    for(var i = 0 ; i < 2000  ; i++) {
+        b1.add((33*i+5)%1024);
+        b2.push((33*i+5)%1024);
+    }
+    for(i = 128 ; i < 128 * 10  ; i++) {
+        b1.add((33*i+5)%1024);
+        b2.push((33*i+5)%1024);
+        var x1 = b1.poll();
+        var x2 = b2.pop();
+        if(x1 != x2) throw "bug "+x1+" "+x2;
+    }
+
+}
+
 function QueueEnqueueBench() {
     console.log("starting dynamic queue/enqueue benchmark");
     var suite = new Benchmark.Suite();
@@ -32,7 +53,7 @@ function QueueEnqueueBench() {
     }  )
 
     .add('js-priority-queue', function() {
-var b = new PriorityQueue({ comparator: function(a, b) {
+        var b = new PriorityQueue({ comparator: function(a, b) {
             return b - a;
         }
                                   });
@@ -99,7 +120,7 @@ var b = new PriorityQueue({ comparator: function(a, b) {
         console.log('Fastest is ' + this.filter('fastest').pluck('name'));
     })
     // run async
-.run({ 'async': false });
+    .run({ 'async': false });
 }
 
 
@@ -123,7 +144,7 @@ function TinyQueueEnqueueBench() {
     }  )
 
     .add('js-priority-queue', function() {
-var b = new PriorityQueue({ comparator: function(a, b) {
+        var b = new PriorityQueue({ comparator: function(a, b) {
             return b - a;
         }
                                   });
@@ -190,13 +211,14 @@ var b = new PriorityQueue({ comparator: function(a, b) {
         console.log('Fastest is ' + this.filter('fastest').pluck('name'));
     })
     // run async
-.run({ 'async': false });
+    .run({ 'async': false });
 }
 
 
 
 
 var main = function() {
+    basictest();
     console.log("Platform: "+process.platform+" "+os.release()+" "+process.arch);
     console.log(os.cpus()[0]["model"]);
     console.log("Node version "+process.versions.node+", v8 version "+process.versions.v8);

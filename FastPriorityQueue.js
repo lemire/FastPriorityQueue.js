@@ -50,7 +50,6 @@ FastPriorityQueue.prototype._percolateUp = function(i) {
     for (; (i > 0) && (this.compare(myval, this.array[p]) < 0); i = p, p = (i - 1) >> 1) {
         this.array[i] = this.array[p];
     }
-    this.array[i] = myval;
 }
 
 
@@ -69,11 +68,11 @@ FastPriorityQueue.prototype._percolateDown = function(i) {
         this.array[(i - 1) >> 1] = this.array[i];
         l = (i << 1) + 1;
     }
-    this.array[i] = ai;
     var p = (i - 1) >> 1;
-    for (; (i > 0) && (this.compare( ai, this.array[p]) < 0); i = p, p = (i - 1) >> 1) {
+    for (; (i > 0) && (this.compare(ai, this.array[p]) < 0); i = p, p = (i - 1) >> 1) {
         this.array[i] = this.array[p];
     }
+    this.array[i] = ai;
 };
 
 //Look at the top of the queue (a smallest element)
