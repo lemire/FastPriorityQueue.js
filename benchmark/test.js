@@ -13,6 +13,7 @@ var pq = require('priority_queue');
 var jsHeap = require('js-heap');
 var qp = require("queue-priority");
 var priorityqueuejs = require("priorityqueuejs");
+var qheap = require("qheap");
 
 // very fast semi-random function
 function rand(i) {
@@ -143,7 +144,17 @@ function QueueEnqueueBench() {
         }
         return b;
     }  )
-
+    .add('qheap', function() {
+        var b = new qheap();
+        for(var i = 0 ; i < 128  ; i++) {
+            b.insert(rand(i));
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.insert(rand(i));
+            b.remove();
+        }
+        return b;
+    }  )
     // add listeners
     .on('cycle', function(event) {
         console.log(String(event.target));
@@ -174,6 +185,7 @@ var main = function() {
     console.log("js-heap: https://github.com/thauburger/js-heap");
     console.log("queue-priority: https://github.com/augustohp/Priority-Queue-NodeJS");
     console.log("priorityqueuejs: https://github.com/janogonzalez/priorityqueuejs");
+    console.log("qheap: https://github.com/andrasq/node-qheap")
     console.log("");
     QueueEnqueueBench();
     console.log("");

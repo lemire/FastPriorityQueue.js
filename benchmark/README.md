@@ -6,5 +6,6 @@ npm install priority_queue
 npm install js-heap
 npm install queue-priority
 npm install priorityqueuejs
+npm install qheap
 
 node test.js
