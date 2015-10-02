@@ -6,11 +6,10 @@ elements quickly in a heap, and query the smallest element. You remove (poll)
 the smallest element quickly as well.
 
 FastPriorityQueue is an attempt to implement a performance-oriented priority queue
-in JavaScript. It is ideal when performance matters.
+in JavaScript. It can be several times faster than other similar libraries.
+It is ideal when performance matters.
 
 License: Apache License 2.0
-
-
 
 Usage
 ===
@@ -22,9 +21,11 @@ x.add(0);
 x.add(5);
 x.add(4);
 x.add(3);
+x.peek(); // should return 0, leaves x unchanged
+x.size; // should return 5, leaves x unchanged
 while(!x.isEmpty()) {
-    console.log(x.poll());// output values starting from the smallest
-}
+  console.log(x.poll());
+} // will print 0 1 4 4 5
 ```
 
 You can also provide the constructor with a comparator function.
@@ -40,6 +41,15 @@ npm install
 ===
 
       $ npm install fastpriorityqueue
+
+Computational complexity
+===
+
+The function calls "add" and "poll" have logarithmic complexity with respect
+to the size of the data structure (attribute size). Looking at the top value
+is a constant time operation.
+
+
 
 Testing
 ===
@@ -85,3 +95,9 @@ priority_queue x 3,886 ops/sec ±6.79% (72 runs sampled)
 js-heap x 1,148 ops/sec ±0.18% (101 runs sampled)
 Fastest is FastPriorityQueue
 ```
+
+You might also like...
+===
+
+If you like this library, you might also like
+https://github.com/lemire/FastBitSet.js
