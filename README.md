@@ -93,7 +93,6 @@ queue-priority x 399 ops/sec ±0.49% (95 runs sampled)
 priorityqueuejs x 6,220 ops/sec ±0.44% (100 runs sampled)
 qheap x 6,313 ops/sec ±0.38% (103 runs sampled)
 yabh x 4,544 ops/sec ±0.12% (101 runs sampled)
-yabh x 4,557 ops/sec ±0.14% (101 runs sampled)
 Fastest is FastPriorityQueue
 ```
 

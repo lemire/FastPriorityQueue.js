@@ -176,18 +176,6 @@ function QueueEnqueueBench() {
         }
         return b;
     }  )
-    .add('yabh', function() {
-        var b = new BinaryHeap();
-        for(var i = 0 ; i < 128  ; i++) {
-            b.push(rand(i));
-        }
-        for(i = 128 ; i < 128 * 10  ; i++) {
-            b.push(rand(i));
-            b.pop();
-        }
-        return b;
-    }  )
-
     // add listeners
     .on('cycle', function(event) {
         console.log(String(event.target));
