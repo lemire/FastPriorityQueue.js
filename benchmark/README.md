@@ -7,5 +7,6 @@ npm install js-heap
 npm install queue-priority
 npm install priorityqueuejs
 npm install qheap
+npm install yabh
 
 node test.js
