@@ -25,7 +25,7 @@ x.peek(); // should return 0, leaves x unchanged
 x.size; // should return 5, leaves x unchanged
 while(!x.isEmpty()) {
   console.log(x.poll());
-} // will print 0 1 4 4 5
+} // will print 0 1 3 4 5
 ```
 
 You can also provide the constructor with a comparator function.
@@ -33,7 +33,7 @@ You can also provide the constructor with a comparator function.
 If you are using node.js, you need to import the module:
 
 ```javascript
-var FastPriorityQueue = require("FastPriorityQueue");
+var FastPriorityQueue = require("fastpriorityqueue");
 var b = new FastPriorityQueue();// initially empty
 b.add(1);// add the value "1"
 ```

@@ -22,7 +22,7 @@
          x.size; // should return 5, leaves x unchanged
          while(!x.isEmpty()) {
            console.log(x.poll());
-         } // will print 0 1 4 4 5
+         } // will print 0 1 3 4 5
  */
 "use strict";
 
