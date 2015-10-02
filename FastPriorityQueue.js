@@ -6,15 +6,23 @@
  * Speed-optimized heap-based priority queue for modern browsers and JavaScript engines.
  *
  * Usage :
+         Installation (in shell, if you use node):
+         $ npm install fastpriorityqueue
+
+         Running test program (in JavaScript):
+
+         // var FastPriorityQueue = require("fastpriorityqueue");// in node
          var x = new FastPriorityQueue();
          x.add(1);
          x.add(0);
          x.add(5);
          x.add(4);
          x.add(3);
+         x.peek(); // should return 0, leaves x unchanged
+         x.size; // should return 5, leaves x unchanged
          while(!x.isEmpty()) {
            console.log(x.poll());
-         }
+         } // will print 0 1 4 4 5
  */
 "use strict";
 
