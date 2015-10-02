@@ -3,6 +3,8 @@
   "description": "Fast heap-based priority queue in JavaScript",
   "keywords": [
     "heap",
+    "binary heap",
+    "data structure",
     "priority queue",
     "performance"
   ],

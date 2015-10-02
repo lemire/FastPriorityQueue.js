@@ -14,6 +14,7 @@ var jsHeap = require('js-heap');
 var qp = require("queue-priority");
 var priorityqueuejs = require("priorityqueuejs");
 var qheap = require("qheap");
+var BinaryHeap = require("yabh");
 
 // very fast semi-random function
 function rand(i) {
@@ -48,6 +49,15 @@ function QueueEnqueueBench() {
     console.log("starting dynamic queue/enqueue benchmark");
     var suite = new Benchmark.Suite();
     // add tests
+    var b = new BinaryHeap();
+    for(var i = 0 ; i < 128  ; i++) {
+        b.push(rand(i));
+    }
+    for(i = 128 ; i < 128 * 10  ; i++) {
+        b.push(rand(i));
+        b.pop();
+    }
+
     var ms = suite
     .add('FastPriorityQueue', function() {
         var b = new FastPriorityQueue(function(a, b) {
@@ -155,6 +165,29 @@ function QueueEnqueueBench() {
         }
         return b;
     }  )
+    .add('yabh', function() {
+        var b = new BinaryHeap();
+        for(var i = 0 ; i < 128  ; i++) {
+            b.push(rand(i));
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.push(rand(i));
+            b.pop();
+        }
+        return b;
+    }  )
+    .add('yabh', function() {
+        var b = new BinaryHeap();
+        for(var i = 0 ; i < 128  ; i++) {
+            b.push(rand(i));
+        }
+        for(i = 128 ; i < 128 * 10  ; i++) {
+            b.push(rand(i));
+            b.pop();
+        }
+        return b;
+    }  )
+
     // add listeners
     .on('cycle', function(event) {
         console.log(String(event.target));
@@ -185,7 +218,8 @@ var main = function() {
     console.log("js-heap: https://github.com/thauburger/js-heap");
     console.log("queue-priority: https://github.com/augustohp/Priority-Queue-NodeJS");
     console.log("priorityqueuejs: https://github.com/janogonzalez/priorityqueuejs");
-    console.log("qheap: https://github.com/andrasq/node-qheap")
+    console.log("qheap: https://github.com/andrasq/node-qheap");
+    console.log("yabh: https://github.com/jmdobry/yabh");
     console.log("");
     QueueEnqueueBench();
     console.log("");
