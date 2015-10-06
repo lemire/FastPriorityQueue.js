@@ -33,7 +33,7 @@ var defaultcomparator = function(a,b) {
 function FastPriorityQueue (comparator) {
   this.array = [];
   this.size = 0;
-  this.compare = defaultcomparator || comparator;
+  this.compare = comparator || defaultcomparator;
 }
 
 
