@@ -30,6 +30,19 @@ while(!x.isEmpty()) {
 
 You can also provide the constructor with a comparator function.
 
+
+```javascript
+var x = new FastPriorityQueue(function(a,b) {return a > b});
+x.add(1);
+x.add(0);
+x.add(5);
+x.add(4);
+x.add(3);
+while(!x.isEmpty()) {
+  console.log(x.poll());
+} // will print 5 4 3 1 0 
+```
+
 If you are using node.js, you need to import the module:
 
 ```javascript

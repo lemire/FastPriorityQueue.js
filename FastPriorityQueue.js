@@ -27,13 +27,14 @@
 "use strict";
 
 var defaultcomparator = function(a,b) {
-  return a < b ? -1 : a > b ? 1 : 0;
+  return a < b;
 }
 
+// the provided comparator function should take a, b and return *true* when a < b
 function FastPriorityQueue (comparator) {
   this.array = [];
   this.size = 0;
-  this.compare = comparator || defaultcomparator;
+  this.compare =  comparator || defaultcomparator;
 }
 
 
@@ -43,7 +44,7 @@ FastPriorityQueue.prototype.add = function(myval) {
     var i = this.size;
     this.array[this.size++] = myval;
     var p = (i - 1) >> 1;
-    for (; (i > 0) && (this.compare(myval, this.array[p]) < 0); i = p, p = (i - 1) >> 1) {
+    for (; (i > 0) && (this.compare(myval, this.array[p])); i = p, p = (i - 1) >> 1) {
         this.array[i] = this.array[p];
     }
     this.array[i] = myval;
@@ -61,7 +62,7 @@ FastPriorityQueue.prototype.heapify = function(arr) {
 FastPriorityQueue.prototype._percolateUp = function(i) {
     var myval = this.array[i];
     var p = (i - 1) >> 1;
-    for (; (i > 0) && (this.compare(myval, this.array[p]) < 0); i = p, p = (i - 1) >> 1) {
+    for (; (i > 0) && (this.compare(myval, this.array[p])); i = p, p = (i - 1) >> 1) {
         this.array[i] = this.array[p];
     }
 }
@@ -76,14 +77,14 @@ FastPriorityQueue.prototype._percolateDown = function(i) {
         var r = l + 1;
         i = l;
         if(r < size) {
-            if (this.compare(this.array[r], this.array[l]) < 0)
+            if (this.compare(this.array[r], this.array[l]))
                 i = r;
         }
         this.array[(i - 1) >> 1] = this.array[i];
         l = (i << 1) + 1;
     }
     var p = (i - 1) >> 1;
-    for (; (i > 0) && (this.compare(ai, this.array[p]) < 0); i = p, p = (i - 1) >> 1) {
+    for (; (i > 0) && (this.compare(ai, this.array[p])); i = p, p = (i - 1) >> 1) {
         this.array[i] = this.array[p];
     }
     this.array[i] = ai;
@@ -123,9 +124,7 @@ FastPriorityQueue.prototype.isEmpty = function(i) {
 // just for illustration purposes
 var main = function() {
     // main code
-    var x = new FastPriorityQueue(function(a, b) {
-        return a - b;
-    });
+    var x = new FastPriorityQueue(function(a,b) {return a > b});
     x.add(1);
     x.add(0);
     x.add(5);

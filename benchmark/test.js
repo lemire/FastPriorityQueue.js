@@ -23,11 +23,12 @@ function rand(i) {
   i = (i >> 5) ^ i ;
   return i & 0xFF;
 }
+var defaultcomparator = function(a,b) {
+  return a < b;
+}
 
 function basictest() {
-    var b1 = new FastPriorityQueue(function(a, b) {
-        return a - b;
-    });
+    var b1 = new FastPriorityQueue(defaultcomparator);
     var b2 = new Heap(function(a, b) {
         return a - b;
     });
@@ -60,9 +61,7 @@ function QueueEnqueueBench() {
 
     var ms = suite
     .add('FastPriorityQueue', function() {
-        var b = new FastPriorityQueue(function(a, b) {
-            return a - b;
-        });
+        var b = new FastPriorityQueue(defaultcomparator);
         for(var i = 0 ; i < 128  ; i++) {
             b.add(rand(i));
         }
