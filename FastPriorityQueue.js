@@ -68,6 +68,23 @@ FastPriorityQueue.prototype._percolateUp = function(i) {
 };
 
 // for internal use
+FastPriorityQueue.prototype._percolateDownExperimental = function(i) {
+  var size = this.size;
+  var ai = this.array[i];
+  var l = (i << 1) + 1;
+  while (l < size) {
+    i = l + (this.compare(this.array[l+1], this.array[l])|0);
+    this.array[(i - 1) >> 1] = this.array[i];
+    l = (i << 1) + 1;
+  }
+  var p = (i - 1) >> 1;
+  for (; (i > 0) && (this.compare(ai, this.array[p]));
+        i = p, p = (i - 1) >> 1) {
+    this.array[i] = this.array[p];
+  }
+  this.array[i] = ai;
+};
+// for internal use
 FastPriorityQueue.prototype._percolateDown = function(i) {
   var size = this.size;
   var ai = this.array[i];
@@ -100,6 +117,16 @@ FastPriorityQueue.prototype.peek = function(t) {
 // remove the element on top of the heap (a smallest element)
 // runs in logarithmic time
 FastPriorityQueue.prototype.poll = function(i) {
+  var ans = this.array[0];
+  if (this.size > 1) {
+    this.array[0] = this.array[--this.size];
+    this._percolateDown(0 | 0);
+  } else {
+    --this.size;
+  }
+  return ans;
+};
+FastPriorityQueue.prototype.pollExperimental = function(i) {
   var ans = this.array[0];
   if (this.size > 1) {
     this.array[0] = this.array[--this.size];

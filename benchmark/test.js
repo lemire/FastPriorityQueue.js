@@ -71,6 +71,17 @@ function QueueEnqueueBench() {
       }
       return b;
     })
+    .add('FastPriorityQueue exp', function() {
+      var b = new FastPriorityQueue(defaultcomparator);
+      for (var i = 0 ; i < 128  ; i++) {
+        b.add(rand(i));
+      }
+      for (i = 128 ; i < 128 * 10  ; i++) {
+        b.add(rand(i));
+        b.pollExperimental();
+      }
+      return b;
+    })
     .add('js-priority-queue', function() {
       var b = new PriorityQueue({comparator: function(a, b) {
         return b - a;
@@ -177,6 +188,9 @@ function QueueEnqueueBench() {
     })
     // add listeners
     .on('cycle', function(event) {
+      console.log(String(event.target));
+    })
+    .on('error', function(event) {
       console.log(String(event.target));
     })
     .on('complete', function() {
