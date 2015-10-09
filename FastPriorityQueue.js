@@ -101,8 +101,16 @@ FastPriorityQueue.prototype.peek = function(t) {
 // runs in logarithmic time
 FastPriorityQueue.prototype.poll = function(i) {
   var ans = this.array[0];
-  this.array[0] = this.array[--this.size];
-  this._percolateDown(0 | 0);
+  /*
+  * Next part could be safely rewritten as 
+    this.array[0] = this.array[--this.size];
+    this._percolateDown(0 | 0);
+    but it appears to be faster with the branch.
+  */
+  if(this.size>1) {
+    this.array[0] = this.array[--this.size];
+    this._percolateDown(0 | 0);
+  } else --this.size;
   return ans;
 };
 
