@@ -101,12 +101,8 @@ FastPriorityQueue.prototype.peek = function(t) {
 // runs in logarithmic time
 FastPriorityQueue.prototype.poll = function(i) {
   var ans = this.array[0];
-  if (this.size > 1) {
-    this.array[0] = this.array[--this.size];
-    this._percolateDown(0 | 0);
-  } else {
-    --this.size;
-  }
+  this.array[0] = this.array[--this.size];
+  this._percolateDown(0 | 0);
   return ans;
 };
 
