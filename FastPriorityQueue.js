@@ -43,9 +43,25 @@ FastPriorityQueue.prototype.add = function(myval) {
     var i = this.size;
     this.array[this.size++] = myval;
     var p = (i - 1) >> 1;
+    var ap;
     for (; (i > 0) && (this.compare(myval, this.array[p]));
             i = p, p = (i - 1) >> 1) {
         this.array[i] = this.array[p];
+    }
+    this.array[i] = myval;
+};
+
+// Add an element the the queue
+// runs in O(log n) time
+FastPriorityQueue.prototype.add2 = function(myval) {
+    var i = this.size;
+    this.array[this.size++] = myval;
+    while ( i > 0) {
+        var p = (i - 1) >> 1;
+        var ap = this.array[p];
+        if(!this.compare(myval, ap )) break;
+        this.array[i] = ap;
+        i = p;
     }
     this.array[i] = myval;
 };
