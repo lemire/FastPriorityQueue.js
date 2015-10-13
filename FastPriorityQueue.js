@@ -69,30 +69,30 @@ FastPriorityQueue.prototype._percolateUp = function(i) {
     }
 };
 
+
 // for internal use
 FastPriorityQueue.prototype._percolateDown = function(i) {
     var size = this.size;
+    var hsize = this.size >>> 1;
     var ai = this.array[i];
-    var l = (i << 1) + 1;
-    while (l < size) {
+    while (i < hsize) {
+        var l = (i << 1) + 1;
         var r = l + 1;
-        i = l;
+        var bestc = this.array[l];
         if (r < size) {
-            if (this.compare(this.array[r], this.array[l])) {
-                i = r;
+            if (this.compare(this.array[r], bestc)) {
+                l = r;
+                bestc = this.array[r];
             }
-        } 
-        if (this.compare(this.array[i],ai)) {
-            this.array[(i - 1) >> 1] = this.array[i];
-            l = (i << 1) + 1;
-        } else {
-            this.array[(i - 1) >> 1] = ai;
-            return;
         }
+        if (!this.compare(bestc,ai)) {
+          break;
+        }
+        this.array[i] = bestc;
+        i = l;
     }
     this.array[i] = ai;
 };
-
 
 //Look at the top of the queue (a smallest element)
 // executes in constant time
@@ -110,7 +110,6 @@ FastPriorityQueue.prototype.poll = function(i) {
     } else --this.size;
     return ans;
 };
-
 
 
 // recover unused memory (for long-running priority queues)
