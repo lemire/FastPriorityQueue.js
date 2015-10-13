@@ -68,6 +68,32 @@ FastPriorityQueue.prototype._percolateUp = function(i) {
 };
 
 // for internal use
+FastPriorityQueue.prototype._percolateDown_trad = function(i) {
+  var size = this.size;
+  var ai = this.array[i];
+  var l = (i << 1) + 1;
+  while (l < size) {
+    var r = l + 1;
+    i = l;
+    if (r < size) {
+      if (this.compare(this.array[r], this.array[l])) {
+        i = r;
+      }
+    } else {
+}
+    if (this.compare(this.array[i],ai)) {
+      this.array[(i - 1) >> 1] = this.array[i];
+      l = (i << 1) + 1;
+    } else {
+      this.array[(i - 1) >> 1] = ai;
+      return;
+    }
+  }
+  this.array[i] = ai;
+};
+
+
+// for internal use
 FastPriorityQueue.prototype._percolateDown = function(i) {
   var size = this.size;
   var ai = this.array[i];
@@ -91,6 +117,33 @@ FastPriorityQueue.prototype._percolateDown = function(i) {
   this.array[i] = ai;
 };
 
+// for internal use
+FastPriorityQueue.prototype._percolateDown_alt = function(i) {
+  var size = this.size;
+  var ai = this.array[i];
+  var l = (i << 1) + 1;
+  while (l < size) {
+    var r = l + 1;
+    i = l;
+    if (r < size) {
+      if (this.compare(this.array[r], this.array[l])) {
+        i = r;
+      }
+    }
+    this.array[(i - 1) >> 1] = this.array[i];
+if (!this.compare(this.array[i], ai)) break;
+    l = (i << 1) + 1;
+
+  }
+  var p = (i - 1) >> 1;
+  for (; (i > 0) && (this.compare(ai, this.array[p]));
+        i = p, p = (i - 1) >> 1) {
+    this.array[i] = this.array[p];
+  }
+  this.array[i] = ai;
+};
+
+
 //Look at the top of the queue (a smallest element)
 // executes in constant time
 FastPriorityQueue.prototype.peek = function(t) {
@@ -103,6 +156,24 @@ FastPriorityQueue.prototype.poll = function(i) {
   var ans = this.array[0];
   this.array[0] = this.array[--this.size];
   this._percolateDown(0 | 0);
+  return ans;
+};
+
+// remove the element on top of the heap (a smallest element)
+// runs in logarithmic time
+FastPriorityQueue.prototype.poll_trad = function(i) {
+  var ans = this.array[0];
+  this.array[0] = this.array[--this.size];
+  this._percolateDown_trad(0 | 0);
+  return ans;
+};
+
+// remove the element on top of the heap (a smallest element)
+// runs in logarithmic time
+FastPriorityQueue.prototype.poll_alt = function(i) {
+  var ans = this.array[0];
+  this.array[0] = this.array[--this.size];
+  this._percolateDown_alt(0 | 0);
   return ans;
 };
 
@@ -119,7 +190,7 @@ FastPriorityQueue.prototype.isEmpty = function(i) {
 // just for illustration purposes
 var main = function() {
   // main code
-  var x = new FastPriorityQueue(function(a, b) {return a > b;});
+  var x = new FastPriorityQueue(function(a, b) {return a < b;});
   x.add(1);
   x.add(0);
   x.add(5);
