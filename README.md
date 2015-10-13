@@ -75,8 +75,9 @@ Using node.js (npm), you can test the code as follows...
 Is it faster?
 ===
 
-It tends to fare well against the competition :
-
+It tends to fare well against the competition.
+In some tests, it can be five times faster than any other 
+JavaScript implementation we could find.
 
 ```
 $ node test.js
@@ -96,16 +97,16 @@ qheap: https://github.com/andrasq/node-qheap
 yabh: https://github.com/jmdobry/yabh
 
 starting dynamic queue/enqueue benchmark
-FastPriorityQueue x 27,047 ops/sec ±0.52% (97 runs sampled)
-js-priority-queue x 4,789 ops/sec ±0.09% (103 runs sampled)
-heap.js x 6,226 ops/sec ±0.05% (104 runs sampled)
-binaryheapx x 4,232 ops/sec ±0.09% (103 runs sampled)
-priority_queue x 2,915 ops/sec ±0.69% (91 runs sampled)
-js-heap x 259 ops/sec ±0.09% (90 runs sampled)
-queue-priority x 388 ops/sec ±0.43% (95 runs sampled)
-priorityqueuejs x 6,245 ops/sec ±0.31% (100 runs sampled)
-qheap x 6,144 ops/sec ±0.28% (103 runs sampled)
-yabh x 4,665 ops/sec ±0.14% (100 runs sampled)
+FastPriorityQueue x 29,523 ops/sec ±1.17% (98 runs sampled)
+js-priority-queue x 4,746 ops/sec ±0.50% (101 runs sampled)
+heap.js x 6,324 ops/sec ±0.33% (103 runs sampled)
+binaryheapx x 4,278 ops/sec ±0.23% (103 runs sampled)
+priority_queue x 2,955 ops/sec ±1.16% (89 runs sampled)
+js-heap x 256 ops/sec ±0.11% (96 runs sampled)
+queue-priority x 396 ops/sec ±0.52% (95 runs sampled)
+priorityqueuejs x 6,115 ops/sec ±0.78% (98 runs sampled)
+qheap x 6,197 ops/sec ±0.74% (102 runs sampled)
+yabh x 4,673 ops/sec ±0.28% (101 runs sampled)
 Fastest is FastPriorityQueue
 ```
 
