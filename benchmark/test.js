@@ -93,7 +93,6 @@ function QueueEnqueueBench() {
       }
       return b;
     })
-
     .add('js-priority-queue', function() {
       var b = new PriorityQueue({comparator: function(a, b) {
         return b - a;
