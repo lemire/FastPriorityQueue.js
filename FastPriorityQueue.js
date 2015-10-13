@@ -81,8 +81,7 @@ FastPriorityQueue.prototype._percolateDown = function(i) {
             if (this.compare(this.array[r], this.array[l])) {
                 i = r;
             }
-        } else {
-        }
+        } 
         if (this.compare(this.array[i],ai)) {
             this.array[(i - 1) >> 1] = this.array[i];
             l = (i << 1) + 1;
