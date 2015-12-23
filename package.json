@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/lemire/FastPriorityQueue.js#readme",
   "dependencies": {
+    "mocha": "^2.3.4"
   },
   "devDependencies": {
     "benchmark": "^1.0.0",
