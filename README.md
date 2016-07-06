@@ -26,6 +26,7 @@ x.size; // should return 5, leaves x unchanged
 while(!x.isEmpty()) {
   console.log(x.poll());
 } // will print 0 1 3 4 5
+x.trim(); // (optional) optimizes memory usage
 ```
 
 You can also provide the constructor with a comparator function.
