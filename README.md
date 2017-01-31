@@ -111,6 +111,11 @@ yabh x 4,553 ops/sec ±0.10% (101 runs sampled)
 Fastest is FastPriorityQueue
 ```
 
+Insertion order
+===
+
+A binary heap does not keep track of the insertion order. 
+
 You might also like...
 ===
 
