@@ -8,7 +8,7 @@
     "priority queue",
     "performance"
   ],
-  "version": "0.1.0",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lemire/FastPriorityQueue.js.git"
@@ -22,8 +22,7 @@
     "url": "https://github.com/lemire/FastPriorityQueue.js/issues"
   },
   "homepage": "https://github.com/lemire/FastPriorityQueue.js#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "benchmark": "^1.0.0",
     "mocha": "^2.3.4"
