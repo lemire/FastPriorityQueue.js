@@ -117,30 +117,28 @@ FastPriorityQueue.prototype._percolateDown = function (i) {
 // Look at the top of the queue (a smallest element)
 // executes in constant time
 //
-// This function assumes that the priority queue is
-// not empty and the caller is resposible for the check.
-// You can use an expression such as
-// "isEmpty() ? undefined : peek()"
-// if you expect to be calling peek on an empty priority queue.
+// Calling peek on an empty priority queue returns
+// the "undefined" value.
+// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/undefined
 //
 FastPriorityQueue.prototype.peek = function () {
+    if(this.size == 0) return undefined;
     return this.array[0];
 };
 
 // remove the element on top of the heap (a smallest element)
 // runs in logarithmic time
 //
-//
-// This function assumes that the priority queue is
-// not empty, and the caller is responsible for the check.
-// You can use an expression such as
-// "isEmpty() ? undefined : poll()"
-// if you expect to be calling poll on an empty priority queue.
+// If the priority queue is empty, the function returns the
+// "undefined" value.
+// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/undefined
 //
 // For long-running and large priority queues, or priority queues
 // storing large objects, you may  want to call the trim function
 // at strategic times to recover allocated memory.
 FastPriorityQueue.prototype.poll = function () {
+    if (this.size == 0) 
+        return undefined;
     var ans = this.array[0];
     if (this.size > 1) {
         this.array[0] = this.array[--this.size];
