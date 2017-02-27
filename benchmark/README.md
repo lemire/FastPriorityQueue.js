@@ -1,3 +1,4 @@
+```
 npm install heap
 npm install js-priority-queue
 npm install benchmark
@@ -10,3 +11,4 @@ npm install qheap
 npm install yabh
 
 node test.js
+```
