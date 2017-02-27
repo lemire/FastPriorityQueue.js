@@ -180,7 +180,7 @@ function QueueEnqueueBench() {
       console.log(String(event.target));
     })
     .on('complete', function() {
-      console.log('Fastest is ' + this.filter('fastest').pluck('name'));
+      console.log('Fastest is ' + this.filter('fastest').map('name'));
     })
     // run async
     .run({'async': false});
@@ -193,15 +193,15 @@ var main = function() {
   console.log('Node version ' + process.versions.node + ', v8 version ' + process.versions.v8);
   console.log();
   console.log('Comparing against: ');
-  console.log('js-priority-queue: https://github.com/adamhooper/js-priority-queue');
-  console.log('heap.js: https://github.com/qiao/heap.js');
-  console.log('binaryheapx: https://github.com/xudafeng/BinaryHeap');
-  console.log('priority_queue: https://github.com/agnat/js_priority_queue');
-  console.log('js-heap: https://github.com/thauburger/js-heap');
-  console.log('queue-priority: https://github.com/augustohp/Priority-Queue-NodeJS');
-  console.log('priorityqueuejs: https://github.com/janogonzalez/priorityqueuejs');
-  console.log('qheap: https://github.com/andrasq/node-qheap');
-  console.log('yabh: https://github.com/jmdobry/yabh');
+  console.log('js-priority-queue: https://github.com/adamhooper/js-priority-queue', require("js-priority-queue/package.json").version);
+  console.log('heap.js: https://github.com/qiao/heap.js', require("heap/package.json").version);
+  console.log('binaryheapx: https://github.com/xudafeng/BinaryHeap', require("binaryheapx/package.json").version);
+  console.log('priority_queue: https://github.com/agnat/js_priority_queue', require("priority_queue/package.json").version);
+  console.log('js-heap: https://github.com/thauburger/js-heap', require("js-heap/package.json").version);
+  console.log('queue-priority: https://github.com/augustohp/Priority-Queue-NodeJS', require("queue-priority/package.json").version);
+  console.log('priorityqueuejs: https://github.com/janogonzalez/priorityqueuejs', require("priorityqueuejs/package.json").version);
+  console.log('qheap: https://github.com/andrasq/node-qheap',  require("qheap/package.json").version);
+  console.log('yabh: https://github.com/jmdobry/yabh',  require("yabh/package.json").version);
   console.log('');
   QueueEnqueueBench();
   console.log('');
