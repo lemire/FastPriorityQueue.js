@@ -111,7 +111,7 @@ yabh x 3,975 ops/sec ±3.57% (76 runs sampled)
 Fastest is FastPriorityQueue
 ```
 
-Note that ``qheap`` has been updated following the introduction of ``FastPriorityQueue``, with a reference to ``FastPriorityQueue`` which might explains the fact that its performance is comparable to ``FastPriorityQueue`.
+Note that ``qheap`` has been updated following the introduction of ``FastPriorityQueue``, with a reference to ``FastPriorityQueue`` which might explains the fact that its performance is comparable to ``FastPriorityQueue``.
 
 Insertion order
 ===
