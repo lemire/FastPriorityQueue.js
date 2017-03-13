@@ -9,6 +9,7 @@ npm install queue-priority
 npm install priorityqueuejs
 npm install qheap
 npm install yabh
+npm install stablepriorityqueue
 
 node test.js
 ```

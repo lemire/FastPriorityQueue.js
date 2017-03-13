@@ -6,6 +6,7 @@
 var FastPriorityQueue = require('../FastPriorityQueue.js');
 var PriorityQueue = require('js-priority-queue');
 var Heap = require('heap');
+var Stable = require('stablepriorityqueue');
 var Benchmark = require('benchmark');
 var os = require('os');
 var binaryheapx = require('binaryheapx').Constructor;
@@ -62,6 +63,19 @@ function QueueEnqueueBench() {
   var ms = suite
     .add('FastPriorityQueue', function() {
       var b = new FastPriorityQueue(defaultcomparator);
+      for (var i = 0 ; i < 128  ; i++) {
+        b.add(rand(i));
+      }
+      for (i = 128 ; i < 128 * 10  ; i++) {
+        b.add(rand(i));
+        b.poll();
+      }
+      return b;
+    })
+    .add('StablePriorityQueue', function() {
+      var b = new Stable(function(a, b) {
+        return b - a;
+      });
       for (var i = 0 ; i < 128  ; i++) {
         b.add(rand(i));
       }
@@ -191,6 +205,7 @@ var main = function() {
   console.log();
   console.log('Comparing against: ');
   console.log('js-priority-queue: https://github.com/adamhooper/js-priority-queue', require("js-priority-queue/package.json").version);
+  console.log('stablepriorityqueue: https://github.com/lemire/StablePriorityQueue.js', require("stablepriorityqueue/package.json").version);
   console.log('heap.js: https://github.com/qiao/heap.js', require("heap/package.json").version);
   console.log('binaryheapx: https://github.com/xudafeng/BinaryHeap', require("binaryheapx/package.json").version);
   console.log('priority_queue: https://github.com/agnat/js_priority_queue', require("priority_queue/package.json").version);
