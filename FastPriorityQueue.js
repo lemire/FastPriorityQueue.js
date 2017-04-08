@@ -33,6 +33,7 @@ var defaultcomparator = function (a, b) {
 
 // the provided comparator function should take a, b and return *true* when a < b
 function FastPriorityQueue(comparator) {
+    if (!(this instanceof FastPriorityQueue)) return new FastPriorityQueue(comparator);
     this.array = [];
     this.size = 0;
     this.compare = comparator || defaultcomparator;
