@@ -1,9 +1,14 @@
 # FastPriorityQueue.js : a fast heap-based priority queue in JavaScript
 [![Build Status](https://travis-ci.org/lemire/FastPriorityQueue.js.png)](https://travis-ci.org/lemire/FastPriorityQueue.js)
 
-A heap can be used to implement a priority queue. At all times, you can insert
-elements quickly in a heap, and query the smallest element. You remove (poll)
-the smallest element quickly as well.
+In a priority queue, you can...
+
+- query or remove (poll) the smallest element quickly
+- insert elements quickly
+
+In practice, "quickly" often means in logarithmic time (O(log n)).
+
+A heap can be used to implement a priority queue.
 
 FastPriorityQueue is an attempt to implement a performance-oriented priority queue
 in JavaScript. It can be several times faster than other similar libraries.
