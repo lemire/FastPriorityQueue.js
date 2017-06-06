@@ -47,7 +47,7 @@ function basictest() {
 
 }
 
-function QueueEnqueueBench() {
+function QueueEnqueueBench(blocks) {
   console.log('starting dynamic queue/enqueue benchmark');
   var suite = new Benchmark.Suite();
   // add tests
@@ -55,31 +55,39 @@ function QueueEnqueueBench() {
   for (var i = 0 ; i < 128  ; i++) {
     b.push(rand(i));
   }
-  for (i = 128 ; i < 128 * 10  ; i++) {
+  for (i = 128 ; i < 128 * blocks ; i++) {
     b.push(rand(i));
     b.pop();
   }
-
+  
   var ms = suite
     .add('FastPriorityQueue', function() {
       var b = new FastPriorityQueue(defaultcomparator);
       for (var i = 0 ; i < 128  ; i++) {
         b.add(rand(i));
       }
-      for (i = 128 ; i < 128 * 10  ; i++) {
+      for (i = 128 ; i < 128 * blocks  ; i++) {
         b.add(rand(i));
         b.poll();
       }
       return b;
     })
-    .add('StablePriorityQueue', function() {
+    .add('sort', function() {
+      var a = new Array();
+      for (var i = 0 ; i < 128 * (blocks + 1)  ; i++) {
+        a.push(rand(i));
+      }
+      a.sort()
+      return a.slice(0,128);
+    })
+     .add('StablePriorityQueue', function() {
       var b = new Stable(function(a, b) {
         return b - a;
       });
       for (var i = 0 ; i < 128  ; i++) {
         b.add(rand(i));
       }
-      for (i = 128 ; i < 128 * 10  ; i++) {
+      for (i = 128 ; i < 128 * blocks ; i++) {
         b.add(rand(i));
         b.poll();
       }
@@ -93,7 +101,7 @@ function QueueEnqueueBench() {
       for (var i = 0 ; i < 128  ; i++) {
         b.queue(rand(i));
       }
-      for (i = 128 ; i < 128 * 10  ; i++) {
+      for (i = 128 ; i < 128 * blocks  ; i++) {
         b.queue(rand(i));
         b.dequeue();
       }
@@ -106,7 +114,7 @@ function QueueEnqueueBench() {
       for (var i = 0 ; i < 128  ; i++) {
         b.push(rand(i));
       }
-      for (i = 128 ; i < 128 * 10  ; i++) {
+      for (i = 128 ; i < 128 * blocks  ; i++) {
         b.push(rand(i));
         b.pop();
       }
@@ -117,7 +125,7 @@ function QueueEnqueueBench() {
       for (var i = 0 ; i < 128  ; i++) {
         b.add(rand(i));
       }
-      for (i = 128 ; i < 128 * 10  ; i++) {
+      for (i = 128 ; i < 128 * blocks  ; i++) {
         b.add(rand(i));
         b.pop();
       }
@@ -128,7 +136,7 @@ function QueueEnqueueBench() {
       for (var i = 0 ; i < 128  ; i++) {
         b.push(rand(i));
       }
-      for (i = 128 ; i < 128 * 10  ; i++) {
+      for (i = 128 ; i < 128 * blocks  ; i++) {
         b.push(rand(i));
         b.shift();
       }
@@ -139,7 +147,7 @@ function QueueEnqueueBench() {
       for (var i = 0 ; i < 128  ; i++) {
         b.push(rand(i));
       }
-      for (i = 128 ; i < 128 * 10  ; i++) {
+      for (i = 128 ; i < 128 * blocks  ; i++) {
         b.push(rand(i));
         b.pop();
       }
@@ -150,7 +158,7 @@ function QueueEnqueueBench() {
       for (var i = 0 ; i < 128  ; i++) {
         b.push(rand(i));
       }
-      for (i = 128 ; i < 128 * 10  ; i++) {
+      for (i = 128 ; i < 128 * blocks  ; i++) {
         b.push(rand(i));
         b.pop();
       }
@@ -161,7 +169,7 @@ function QueueEnqueueBench() {
       for (var i = 0 ; i < 128  ; i++) {
         b.enq(rand(i));
       }
-      for (i = 128 ; i < 128 * 10  ; i++) {
+      for (i = 128 ; i < 128 * blocks  ; i++) {
         b.enq(rand(i));
         b.deq();
       }
@@ -172,7 +180,7 @@ function QueueEnqueueBench() {
       for (var i = 0 ; i < 128  ; i++) {
         b.insert(rand(i));
       }
-      for (i = 128 ; i < 128 * 10  ; i++) {
+      for (i = 128 ; i < 128 * blocks  ; i++) {
         b.insert(rand(i));
         b.remove();
       }
@@ -183,7 +191,7 @@ function QueueEnqueueBench() {
       for (var i = 0 ; i < 128  ; i++) {
         b.push(rand(i));
       }
-      for (i = 128 ; i < 128 * 10  ; i++) {
+      for (i = 128 ; i < 128 * blocks  ; i++) {
         b.push(rand(i));
         b.pop();
       }
@@ -215,7 +223,9 @@ var main = function() {
   console.log('qheap: https://github.com/andrasq/node-qheap',  require("qheap/package.json").version);
   console.log('yabh: https://github.com/jmdobry/yabh',  require("yabh/package.json").version);
   console.log('');
-  QueueEnqueueBench();
+  QueueEnqueueBench(10);
+  console.log('');
+  QueueEnqueueBench(100);
   console.log('');
 };
 
