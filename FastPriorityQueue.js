@@ -151,6 +151,19 @@ FastPriorityQueue.prototype.poll = function () {
 };
 
 
+// This function adds the provided value to the heap, while removing
+//  and returning the peek value (like poll). The size of the priority
+// thus remains unchanged.
+FastPriorityQueue.prototype.replaceTop = function (myval) {
+    if (this.size == 0) 
+        return undefined;
+    var ans = this.array[0];
+    this.array[0] = myval;
+    this._percolateDown(0 | 0);
+    return ans;
+};
+
+
 // recover unused memory (for long-running priority queues)
 FastPriorityQueue.prototype.trim = function () {
     this.array = this.array.slice(0, this.size);

@@ -59,7 +59,16 @@ function QueueEnqueueBench(blocks) {
     b.push(rand(i));
     b.pop();
   }
-  
+     {
+      var b = new FastPriorityQueue(defaultcomparator);
+      for (var i = 0 ; i < 128  ; i++) {
+        b.add(rand(i));
+      }
+      for (i = 128 ; i < 128 * blocks  ; i++) {
+        b.replaceTop(rand(i));
+      }
+    }
+   
   var ms = suite
     .add('FastPriorityQueue', function() {
       var b = new FastPriorityQueue(defaultcomparator);
@@ -72,12 +81,24 @@ function QueueEnqueueBench(blocks) {
       }
       return b;
     })
-    .add('sort', function() {
+    .add('FastPriorityQueue---replaceTop', function() {
+      var b = new FastPriorityQueue(defaultcomparator);
+      for (var i = 0 ; i < 128  ; i++) {
+        b.add(rand(i));
+      }
+      for (i = 128 ; i < 128 * blocks  ; i++) {
+        b.replaceTop(rand(i));
+      }
+      return b;
+    })
+     .add('sort', function() {
       var a = new Array();
       for (var i = 0 ; i < 128 * (blocks + 1)  ; i++) {
         a.push(rand(i));
       }
-      a.sort()
+      a.sort(function(a, b) {
+            return b - a; // in reverse
+      });
       return a.slice(0,128);
     })
      .add('StablePriorityQueue', function() {
