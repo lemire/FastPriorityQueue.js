@@ -56,6 +56,9 @@ var FastPriorityQueue = require("fastpriorityqueue");
 var b = new FastPriorityQueue();// initially empty
 b.add(1);// add the value "1"
 ```
+
+The ``replaceTop`` function allows you to add and poll in one integrated operation, which is useful fast top-k queries. See [Top speed for top-k queries](http://lemire.me/blog/2017/06/21/top-speed-for-top-k-queries/).
+
 npm install
 ===
 
