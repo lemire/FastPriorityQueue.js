@@ -1,9 +1,8 @@
 /* This script expects node.js  and mocha */
 
-'use strict';
+import {FastPriorityQueue} from '../FastPriorityQueue';
 
 describe('FastPriorityQueue', function() {
-  var FastPriorityQueue = require('../FastPriorityQueue.js');
   var seed = 1;
   function random() {
     var x = Math.sin(seed++) * 10000;
@@ -43,7 +42,7 @@ describe('FastPriorityQueue', function() {
 
   it('Random', function() {
     for (var ti = 0; ti < 100; ti++) {
-      var b = new FastPriorityQueue(function(a, b) {
+      var b = new FastPriorityQueue<number>(function(a, b) {
         return a < b;
       });
       var N = 1024 + ti;
@@ -53,7 +52,7 @@ describe('FastPriorityQueue', function() {
       var v = 0;
       while (!b.isEmpty()) {
         var nv = b.poll();
-        if (nv < v) throw 'bug';
+        if (!nv || nv < v) throw 'bug';
         v = nv;
       }
     }
