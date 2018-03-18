@@ -17,7 +17,7 @@
   "scripts": {
     "build": "tsc --pretty",
     "test:run": "mocha dist/unit/basictests.js",
-    "test": "npm-run-all build test:run"
+    "test": "npm run build && npm run test:run"
   },
   "license": "Apache-2.0",
   "bugs": {
@@ -25,7 +25,6 @@
   },
   "homepage": "https://github.com/lemire/FastPriorityQueue.js#readme",
   "devDependencies": {
-    "npm-run-all": "^4.1.2",
     "mocha": "^2.3.4",
     "@types/mocha": "^2.2.48",
     "typescript": "^2.7.2",
