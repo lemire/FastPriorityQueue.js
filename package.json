@@ -16,8 +16,8 @@
   "main": "FastPriorityQueue.js",
   "scripts": {
     "build": "tsc --pretty",
-    "test": "mocha dist/unit/basictests.js",
-    "start": "npm-run-all build test"
+    "test:run": "mocha dist/unit/basictests.js",
+    "test": "npm-run-all build test:run"
   },
   "license": "Apache-2.0",
   "bugs": {
