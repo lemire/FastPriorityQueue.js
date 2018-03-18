@@ -47,5 +47,6 @@
     "queue-priority": "^1.0.0",
     "stablepriorityqueue": "^0.1.0",
     "yabh": "^1.2.0"
-  }
+  },
+  "types": "dist/FastPriorityQueue.d.ts"
 }
