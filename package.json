@@ -1,5 +1,5 @@
 {
-  "name": "fastpriorityqueue",
+  "name": "typedpriorityqueue",
   "description": "Fast heap-based priority queue in TypeScript",
   "keywords": [
     "heap",
@@ -11,7 +11,7 @@
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ddurschlag6river/FastPriorityQueue.ts.git"
+    "url": "https://github.com/ddurschlag6river/TypedPriorityQueue.git"
   },
   "scripts": {
     "build": "tsc --pretty",
@@ -20,9 +20,9 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ddurschlag6river/FastPriorityQueue.ts/issues"
+    "url": "https://github.com/ddurschlag6river/TypedPriorityQueue/issues"
   },
-  "homepage": "https://github.com/ddurschlag6river/FastPriorityQueue.ts",
+  "homepage": "https://github.com/ddurschlag6river/TypedPriorityQueue",
   "devDependencies": {
     "mocha": "^2.3.4",
     "@types/mocha": "^2.2.48",
@@ -53,5 +53,5 @@
     }
   ],
   "dependencies": {},
-  "types": "dist/FastPriorityQueue.d.ts"
+  "types": "dist/TypedPriorityQueue.d.ts"
 }
