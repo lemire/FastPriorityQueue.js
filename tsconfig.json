@@ -1,0 +1,32 @@
+{
+	"compileOnSave": true,
+	"compilerOptions": {
+		"outDir": "dist",
+		"target": "es5",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"allowUnreachableCode": false,
+		"strict": true,
+		"sourceMap": true,
+		"declaration": true,
+		"removeComments": false,
+		"preserveConstEnums": true,
+		"noImplicitReturns": true,
+		"types": [
+			"reflect-metadata",
+			"mocha",
+			"chai",
+			"uuid"
+		],
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"skipLibCheck": true
+	},
+	"exclude": [
+		"node_modules",
+		"scripts",
+		"coverage",
+		"dist",
+		"test"
+	]
+}

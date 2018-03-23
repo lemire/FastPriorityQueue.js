@@ -3,7 +3,7 @@
 
 'use strict';
 
-var FastPriorityQueue = require('../FastPriorityQueue.js');
+var {FastPriorityQueue} = require('../dist/FastPriorityQueue');
 var PriorityQueue = require('js-priority-queue');
 var Heap = require('heap');
 var Stable = require('stablepriorityqueue');
