@@ -1,15 +1,15 @@
 /* This script expects node.js  and mocha */
 
-import {FastPriorityQueue} from '../FastPriorityQueue';
+import {TypedPriorityQueue} from '../TypedPriorityQueue';
 
-describe('FastPriorityQueue', function() {
+describe('TypedPriorityQueue', function() {
   var seed = 1;
   function random() {
     var x = Math.sin(seed++) * 10000;
     return x - Math.floor(x);
   }
   it('example1', function() {
-    var x = new FastPriorityQueue(function(a, b) {
+    var x = new TypedPriorityQueue(function(a, b) {
       return a < b;
     });
     x.add(1);
@@ -25,7 +25,7 @@ describe('FastPriorityQueue', function() {
   });
 
   it('example2', function() {
-    var x = new FastPriorityQueue(function(a, b) {
+    var x = new TypedPriorityQueue(function(a, b) {
       return a > b;
     });
     x.add(1);
@@ -42,7 +42,7 @@ describe('FastPriorityQueue', function() {
 
   it('Random', function() {
     for (var ti = 0; ti < 100; ti++) {
-      var b = new FastPriorityQueue<number>(function(a, b) {
+      var b = new TypedPriorityQueue<number>(function(a, b) {
         return a < b;
       });
       var N = 1024 + ti;
@@ -59,7 +59,7 @@ describe('FastPriorityQueue', function() {
   });
   it('RandomArray', function() {
     for (var ti = 0; ti < 100; ti++) {
-      var b = new FastPriorityQueue(function(a, b) {
+      var b = new TypedPriorityQueue(function(a, b) {
         return a < b;
       });
       var array = new Array();
@@ -81,7 +81,7 @@ describe('FastPriorityQueue', function() {
   });
   it('RandomArrayEnDe', function() {
     for (var ti = 0; ti < 100; ti++) {
-      var b = new FastPriorityQueue(function(a, b) {
+      var b = new TypedPriorityQueue(function(a, b) {
         return a < b;
       });
       var array = new Array();
