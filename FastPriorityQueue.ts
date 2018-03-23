@@ -1,5 +1,5 @@
 /**
- * FastPriorityQueue.js : a fast heap-based priority queue  in JavaScript.
+ * TypedPriorityQueue : a fast heap-based priority queue  in JavaScript.
  * (c) the authors
  * Licensed under the Apache License, Version 2.0.
  *
@@ -7,12 +7,12 @@
  *
  * Usage :
          Installation (in shell, if you use node):
-         $ npm install fastpriorityqueue
+         $ npm install typedpriorityqueue
 
          Running test program (in JavaScript):
 
-         // var FastPriorityQueue = require("fastpriorityqueue");// in node
-         var x = new FastPriorityQueue();
+         // var TypedPriorityQueue = require("typedpriorityqueue");// in node
+         var x = new TypedPriorityQueue();
          x.add(1);
          x.add(0);
          x.add(5);
@@ -28,16 +28,16 @@
 "use strict";
 
 // the provided comparator function should take a, b and return *true* when a < b
-export class FastPriorityQueue<T> {
+export class TypedPriorityQueue<T> {
     private array: T[];
     private size: number;
     private compare: (a: T, b: T) => boolean;
 
     constructor(comparator: (a: any, b: any) => boolean) {
-        if (!(this instanceof FastPriorityQueue)) return new FastPriorityQueue(comparator);
+        if (!(this instanceof TypedPriorityQueue)) return new TypedPriorityQueue(comparator);
         this.array = [];
         this.size = 0;
-        this.compare = comparator || FastPriorityQueue.defaultcomparator;
+        this.compare = comparator || TypedPriorityQueue.defaultcomparator;
     }
 
     private static defaultcomparator<T>(a: T, b: T) {
@@ -176,7 +176,7 @@ export class FastPriorityQueue<T> {
 // // just for illustration purposes
 // var main = function () {
 //     // main code
-//     var x = new FastPriorityQueue<number>(function (a: number, b: number) {
+//     var x = new TypedPriorityQueue<number>(function (a: number, b: number) {
 //         return a < b;
 //     });
 //     x.add(1);
