@@ -1,6 +1,6 @@
 {
   "name": "fastpriorityqueue",
-  "description": "Fast heap-based priority queue in JavaScript",
+  "description": "Fast heap-based priority queue in TypeScript",
   "keywords": [
     "heap",
     "binary heap",
@@ -8,12 +8,11 @@
     "priority queue",
     "performance"
   ],
-  "version": "0.3.0",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lemire/FastPriorityQueue.js.git"
+    "url": "https://github.com/ddurschlag6river/FastPriorityQueue.ts.git"
   },
-  "main": "FastPriorityQueue.js",
   "scripts": {
     "build": "tsc --pretty",
     "test:run": "mocha dist/unit/basictests.js",
@@ -21,9 +20,9 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/lemire/FastPriorityQueue.js/issues"
+    "url": "https://github.com/ddurschlag6river/FastPriorityQueue.ts/issues"
   },
-  "homepage": "https://github.com/lemire/FastPriorityQueue.js#readme",
+  "homepage": "https://github.com/ddurschlag6river/FastPriorityQueue.ts",
   "devDependencies": {
     "mocha": "^2.3.4",
     "@types/mocha": "^2.2.48",
@@ -32,12 +31,9 @@
     "@types/chai": "^4.1.2",
     "uuid": "^3.2.1",
     "@types/uuid": "^3.4.3",
-    "reflect-metadata": "^0.1.12"
-  },
-  "author": "Daniel Lemire <lemire@gmail.com> (http://lemire.me/en/)",
-  "dependencies": {
-    "benchmark": "^2.1.4",
+    "reflect-metadata": "^0.1.12",
     "binaryheapx": "^0.1.1",
+    "benchmark": "^2.1.4",
     "heap": "^0.2.6",
     "js-heap": "^0.3.1",
     "js-priority-queue": "^0.1.5",
@@ -48,5 +44,14 @@
     "stablepriorityqueue": "^0.1.0",
     "yabh": "^1.2.0"
   },
+  "author": "Daniel Lemire <lemire@gmail.com> (http://lemire.me/en/)",
+  "contributors": [
+    {
+      "name": "David Durschlag",
+      "email": "ddurschlag@6river.com",
+      "url": "https://6river.com/"
+    }
+  ],
+  "dependencies": {},
   "types": "dist/FastPriorityQueue.d.ts"
 }
