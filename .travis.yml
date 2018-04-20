@@ -16,6 +16,5 @@ script: >
      npm install priorityqueuejs && 
      npm install qheap &&
      npm install yabh &&
-     npm install stablepriorityqueue
-
-node test.js
+     npm install stablepriorityqueue && 
+     node benchmark/test.js
