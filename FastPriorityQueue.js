@@ -40,7 +40,7 @@ function FastPriorityQueue(comparator) {
 }
 
 
-// Add an element the the queue
+// Add an element into the queue
 // runs in O(log n) time
 FastPriorityQueue.prototype.add = function (myval) {
     var i = this.size;
