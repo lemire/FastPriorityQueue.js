@@ -1,10 +1,11 @@
-# FastPriorityQueue.js : a fast heap-based priority queue in JavaScript
+# FastPriorityQueue.js : a fast, heap-based priority queue in JavaScript
+
 [![Build Status](https://travis-ci.org/lemire/FastPriorityQueue.js.png)](https://travis-ci.org/lemire/FastPriorityQueue.js)
 
 In a priority queue, you can...
 
-- query or remove (poll) the smallest element quickly
-- insert elements quickly
+* query or remove (poll) the smallest element quickly
+* insert elements quickly
 
 In practice, "quickly" often means in logarithmic time (O(log n)).
 
@@ -16,8 +17,7 @@ It is ideal when performance matters.
 
 License: Apache License 2.0
 
-Usage
-===
+# Usage
 
 ```javascript
 var x = new FastPriorityQueue();
@@ -28,7 +28,7 @@ x.add(4);
 x.add(3);
 x.peek(); // should return 0, leaves x unchanged
 x.size; // should return 5, leaves x unchanged
-while(!x.isEmpty()) {
+while (!x.isEmpty()) {
   console.log(x.poll());
 } // will print 0 1 3 4 5
 x.trim(); // (optional) optimizes memory usage
@@ -36,56 +36,62 @@ x.trim(); // (optional) optimizes memory usage
 
 You can also provide the constructor with a comparator function.
 
-
 ```javascript
-var x = new FastPriorityQueue(function(a,b) {return a > b});
+var x = new FastPriorityQueue(function(a, b) {
+  return a > b;
+});
 x.add(1);
 x.add(0);
 x.add(5);
 x.add(4);
 x.add(3);
-while(!x.isEmpty()) {
+while (!x.isEmpty()) {
   console.log(x.poll());
-} // will print 5 4 3 1 0 
+} // will print 5 4 3 1 0
 ```
 
 If you are using node.js, you need to import the module:
 
 ```javascript
-var FastPriorityQueue = require("fastpriorityqueue");
-var b = new FastPriorityQueue();// initially empty
-b.add(1);// add the value "1"
+var FastPriorityQueue = require('fastpriorityqueue');
+var b = new FastPriorityQueue(); // initially empty
+b.add(1); // add the value "1"
 ```
 
-The ``replaceTop`` function allows you to add and poll in one integrated operation, which is useful fast top-k queries. See [Top speed for top-k queries](http://lemire.me/blog/2017/06/21/top-speed-for-top-k-queries/).
+Instance methods summary:
 
-npm install
-===
+* `add(value)`: add an element into the queue; runs in `O(log n)` time.
+* `poll()`: remove and return the element on top of the heap (smallest element); runs in `O(log n)` time. If the priority queue is empty, the function returns `undefined`.
+* `remove(value[, comparator])`: remove the given item, if found, from the queue. The item is found by using the queue's comparator (if a new comparator function isn't provided). A custom comparator is useful if you want to remove based on a seperate key value, not necessarily priority. Returns `true` if an item is removed, `false` otherwise.
+* `replaceTop(value)`: `poll()` and `add(value)` in one operation. This is useful for [fast, top-k queries](http://lemire.me/blog/2017/06/21/top-speed-for-top-k-queries/). Returns the removed element, similar to `poll()`.
+* `heapify(array)`: replace the content of the heap with the provided array, then order it based on the comparator.
+* `peek()`: return the top of the queue (smallest element) without removal; runs in `O(1)` time.
+* `isEmpty()`: return `true` if the the queue has no elements, false otherwise.
+* `clone()`: copy the priority queue into another, and return it. Queue items are shallow-copied. Runs in `O(n)` time.
+* `forEach(callback)`: iterate over all items in the priority queue from smallest to largest. `callback` should be a function that accepts two arguements, `value` (the item), and `index`, the zero-based index of the item.
+* `trim()`: clean up unused memory in the heap; useful after high-churn operations like many `add()`s then `remove()`s.
+
+# npm install
 
       $ npm install fastpriorityqueue
 
-Computational complexity
-===
+# Computational complexity
 
 The function calls "add" and "poll" have logarithmic complexity with respect
 to the size of the data structure (attribute size). Looking at the top value
 is a constant time operation.
 
-
-
-Testing
-===
+# Testing
 
 Using node.js (npm), you can test the code as follows...
 
       $ npm install mocha
       $ npm test
 
-Is it faster?
-===
+# Is it faster?
 
 It tends to fare well against the competition.
-In some tests, it can be five times faster than any other 
+In some tests, it can be five times faster than any other
 JavaScript implementation we could find.
 
 ```
@@ -119,17 +125,16 @@ yabh x 3,975 ops/sec ±3.57% (76 runs sampled)
 Fastest is FastPriorityQueue
 ```
 
-Note that ``qheap`` has been updated following the introduction of ``FastPriorityQueue``, with a reference to ``FastPriorityQueue`` which might explains the fact that its performance is comparable to ``FastPriorityQueue``.
+Note that `qheap` has been updated following the introduction of `FastPriorityQueue`, with a reference to `FastPriorityQueue` which might explains the fact that its performance is comparable to `FastPriorityQueue`.
 
-Insertion order
-===
+# Insertion order
 
-A binary heap does not keep track of the insertion order. 
+A binary heap does not keep track of the insertion order.
 
-You might also like...
-===
+# You might also like...
 
 If you like this library, you might also like
-- https://github.com/lemire/FastBitSet.js
-- https://github.com/lemire/StablePriorityQueue.js
-- https://github.com/lemire/FastIntegerCompression.js
+
+* https://github.com/lemire/FastBitSet.js
+* https://github.com/lemire/StablePriorityQueue.js
+* https://github.com/lemire/FastIntegerCompression.js
