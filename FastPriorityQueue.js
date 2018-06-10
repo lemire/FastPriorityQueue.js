@@ -245,7 +245,7 @@ FastPriorityQueue.prototype.kSmallest = function(k) {
   var r = 0;
   var ai = this.array[i];
   fpq.add({data: ai, idx: i});
-  while (j < k) {
+  while (j < k && fpq.size > 0) {
     var small = fpq.poll();
     smallest[j++] = small.data;
     i = small.idx;
