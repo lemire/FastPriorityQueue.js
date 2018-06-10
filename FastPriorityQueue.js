@@ -235,7 +235,8 @@ FastPriorityQueue.prototype.forEach = function(callback) {
 // return the k smallest elements of the queue
 // runs in O(k log k) time
 FastPriorityQueue.prototype.kSmallest = function(k) {
-  var fpq = new FastPriorityQueue(function(a,b){ return a.data < b.data; });
+  var comparator = this.compare;
+  var fpq = new FastPriorityQueue(function(a,b){ return comparator(a.data,b.data); });
   k = Math.min(this.size, k);
   var smallest = new Array(k);
   var i = 0;
