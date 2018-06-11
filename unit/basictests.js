@@ -5,11 +5,32 @@
 describe('FastPriorityQueue', function() {
   var FastPriorityQueue = require('../FastPriorityQueue.js');
   var seed = 1;
+
   function random() {
     var x = Math.sin(seed++) * 10000;
     return x - Math.floor(x);
   }
+
+  function checkOrderNonVolatile(x, iterOrder) {
+    // TODO once we trasnpile
+    //if (!Symbol || !Symbol.iterator) return;
+    // let i = 0;
+    // for (let next of x) {
+    //   var item = iterOrder[i++];
+    //   if (next !== item) throw 'expected=' + item + ', got=' + next;
+    // }
+    var j = 0;
+    x.forEach(function(next, i) {
+      j++;
+      var item = iterOrder[i];
+      //var next = iter.next().value;
+      if (next !== item) throw 'expected=' + item + ', got=' + next;
+    });
+    if (j !== iterOrder.length) throw 'bug';
+  }
+
   it('example1', function() {
+    // ascending
     var x = new FastPriorityQueue(function(a, b) {
       return a < b;
     });
@@ -18,14 +39,21 @@ describe('FastPriorityQueue', function() {
     x.add(5);
     x.add(4);
     x.add(3);
-    if (x.poll() != 0) throw 'bug';
-    if (x.poll() != 1) throw 'bug';
-    if (x.poll() != 3) throw 'bug';
-    if (x.poll() != 4) throw 'bug';
-    if (x.poll() != 5) throw 'bug';
+
+    var iterOrder = [0, 1, 3, 4, 5];
+
+    // first iterate without mutating the queue
+    checkOrderNonVolatile(x, iterOrder);
+
+    // then iterate via polling
+    for (var i = 0; i < iterOrder.length; i++) {
+      var item = iterOrder[i];
+      if (x.poll() != item) throw 'bug';
+    }
   });
 
   it('example2', function() {
+    // descending
     var x = new FastPriorityQueue(function(a, b) {
       return a > b;
     });
@@ -34,11 +62,42 @@ describe('FastPriorityQueue', function() {
     x.add(5);
     x.add(4);
     x.add(3);
-    if (x.poll() != 5) throw 'bug5';
-    if (x.poll() != 4) throw 'bug4';
-    if (x.poll() != 3) throw 'bug3';
-    if (x.poll() != 1) throw 'bug1';
-    if (x.poll() != 0) throw 'bug0';
+
+    var iterOrder = [5, 4, 3, 1, 0];
+
+    // first iterate without mutating the queue
+    checkOrderNonVolatile(x, iterOrder);
+
+    // then iterate via polling
+    for (var i = 0; i < iterOrder.length; i++) {
+      var item = iterOrder[i];
+      if (x.poll() != item) throw 'bug';
+    }
+  });
+
+  it('remove', function() {
+    var x = new FastPriorityQueue();
+    x.heapify([8, 6, 7, 5, 3, 0, 9, 1, 0]);
+    checkOrderNonVolatile(x, [0, 0, 1, 3, 5, 6, 7, 8, 9]);
+
+    if (!x.remove(0)) throw 'bug';
+    checkOrderNonVolatile(x, [0, 1, 3, 5, 6, 7, 8, 9]);
+
+    if (!x.remove(7)) throw 'bug';
+    if (!x.remove(3)) throw 'bug';
+    checkOrderNonVolatile(x, [0, 1, 5, 6, 8, 9]);
+
+    if (!x.remove(9)) throw 'bug';
+    checkOrderNonVolatile(x, [0, 1, 5, 6, 8]);
+
+    if (!x.remove(6)) throw 'bug';
+    checkOrderNonVolatile(x, [0, 1, 5, 8]);
+
+    if (!x.remove(1)) throw 'bug';
+    checkOrderNonVolatile(x, [0, 5, 8]);
+
+    if (x.remove(1)) throw 'bug';
+    checkOrderNonVolatile(x, [0, 5, 8]);
   });
 
   it('Random', function() {
@@ -48,7 +107,7 @@ describe('FastPriorityQueue', function() {
       });
       var N = 1024 + ti;
       for (var i = 0; i < N; ++i) {
-        b.add(Math.floor((random() * 1000000) + 1));
+        b.add(Math.floor(random() * 1000000 + 1));
       }
       var v = 0;
       while (!b.isEmpty()) {
@@ -58,6 +117,7 @@ describe('FastPriorityQueue', function() {
       }
     }
   });
+
   it('RandomArray', function() {
     for (var ti = 0; ti < 100; ti++) {
       var b = new FastPriorityQueue(function(a, b) {
@@ -66,7 +126,7 @@ describe('FastPriorityQueue', function() {
       var array = new Array();
       var N = 1024 + ti;
       for (var i = 0; i < N; ++i) {
-        var val  = Math.floor((random() * 1000000) + 1);
+        var val = Math.floor(random() * 1000000 + 1);
         b.add(val);
         array.push(val);
       }
@@ -80,6 +140,7 @@ describe('FastPriorityQueue', function() {
       }
     }
   });
+
   it('RandomArrayEnDe', function() {
     for (var ti = 0; ti < 100; ti++) {
       var b = new FastPriorityQueue(function(a, b) {
@@ -88,7 +149,7 @@ describe('FastPriorityQueue', function() {
       var array = new Array();
       var N = 16 + ti;
       for (var i = 0; i < N; ++i) {
-        var val  = Math.floor((random() * 1000000) + 1);
+        var val = Math.floor(random() * 1000000 + 1);
         b.add(val);
         array.push(val);
       }
@@ -99,7 +160,7 @@ describe('FastPriorityQueue', function() {
         var nv = b.poll();
         var nx = array.pop();
         if (nv != nx) throw 'bug';
-        var val  = Math.floor((random() * 1000000) + 1);
+        var val = Math.floor(random() * 1000000 + 1);
         b.add(val);
         array.push(val);
         array.sort(function(a, b) {
@@ -108,5 +169,4 @@ describe('FastPriorityQueue', function() {
       }
     }
   });
-
 });
