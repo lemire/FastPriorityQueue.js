@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/lemire/FastPriorityQueue.js#readme",
   "devDependencies": {
-    "mocha": "^2.3.4"
+    "mocha": "^5.2.0"
   },
   "author": "Daniel Lemire <lemire@gmail.com> (http://lemire.me/en/)"
 }
