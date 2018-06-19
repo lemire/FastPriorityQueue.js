@@ -169,4 +169,37 @@ describe('FastPriorityQueue', function() {
       }
     }
   });
+
+  it('should return k smallest', function() {
+    // ascending
+    var x = new FastPriorityQueue(function(a, b) {
+      return a < b;
+    });
+    x.add(1);
+    x.add(0);
+    x.add(5);
+    x.add(4);
+    x.add(3);
+    x.add(7);
+    x.add(4.5);
+    x.add(12);
+    x.add(3.223);
+    x.add(1.2);
+    x.add(2.22);
+    x.add(0.003);
+
+    var iterOrder = [0, 0.003, 1, 1.2, 2.22, 3, 3.223, 4, 4.5, 5, 7, 12];
+
+    // first iterate without mutating the queue
+    checkOrderNonVolatile(x, iterOrder);
+
+    // check k smallest for k = 0 ... n
+    for (var i = 0; i < x.size; i++) if (JSON.stringify(x.kSmallest(i)) !== JSON.stringify(iterOrder.slice(0,i))) throw 'bug';
+
+    // then iterate via polling
+    for (var i = 0; i < iterOrder.length; i++) {
+      var item = iterOrder[i];
+      if (x.poll() != item) throw 'bug';
+    }
+  });
 });
