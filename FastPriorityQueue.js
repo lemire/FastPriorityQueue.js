@@ -232,14 +232,17 @@ FastPriorityQueue.prototype.forEach = function(callback) {
   }
 };
 
-// return the k smallest elements of the queue
+// return the k 'smallest' elements of the queue
 // runs in O(k log k) time
+// this is the equivalent of repeatedly calling poll, but
+// it has a better computational complexity, which can be
+// important for large data sets.
 FastPriorityQueue.prototype.kSmallest = function(k) {
   if (this.size == 0) return [];
   var comparator = this.compare;
   var arr = this.array
   var fpq = new FastPriorityQueue(function(a,b){
-   return comparator(arr[a],arr[b]); 
+   return comparator(arr[a],arr[b]);
   });
   k = Math.min(this.size, k);
   var smallest = new Array(k);
