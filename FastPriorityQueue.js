@@ -235,24 +235,22 @@ FastPriorityQueue.prototype.forEach = function(callback) {
 // return the k smallest elements of the queue
 // runs in O(k log k) time
 FastPriorityQueue.prototype.kSmallest = function(k) {
+  if (this.size == 0) return [];
   var comparator = this.compare;
-  var fpq = new FastPriorityQueue(function(a,b){ return comparator(a.data,b.data); });
+  var fpq = new FastPriorityQueue(function(a,b){ 
+   return comparator(this.array[a],this.array[b]); 
+  });
   k = Math.min(this.size, k);
   var smallest = new Array(k);
-  var i = 0;
   var j = 0;
-  var l = 0;
-  var r = 0;
-  var ai = this.array[i];
-  fpq.add({data: ai, idx: i});
-  while (j < k && fpq.size > 0) {
+  fpq.add(0);
+  while (j < k) {
     var small = fpq.poll();
-    smallest[j++] = small.data;
-    i = small.idx;
-    l = (i << 1) + 1;
-    r = l + 1;
-    if (this.array[l]) fpq.add({data: this.array[l], idx: l});
-    if (this.array[r]) fpq.add({data: this.array[r], idx: r});
+    smallest[j++] = this.array[small];
+    var l = (small << 1) + 1;
+    var r = l + 1;
+    if (l < this.size) fpq.add(l);
+    if (r < this.size) fpq.add(r);
   }
   return smallest;
 }
