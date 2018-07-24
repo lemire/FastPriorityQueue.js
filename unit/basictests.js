@@ -77,8 +77,15 @@ describe('FastPriorityQueue', function() {
 
   it('remove', function() {
     var x = new FastPriorityQueue();
+
+    // should return false when queue is empty
+    if(x.remove(0) !== false) throw 'bug';
+
     x.heapify([8, 6, 7, 5, 3, 0, 9, 1, 0]);
     checkOrderNonVolatile(x, [0, 0, 1, 3, 5, 6, 7, 8, 9]);
+
+    // should return false when no matching element is in the queue
+    if(x.remove(10) !== false) throw 'bug';
 
     if (!x.remove(0)) throw 'bug';
     checkOrderNonVolatile(x, [0, 1, 3, 5, 6, 7, 8, 9]);
@@ -98,6 +105,52 @@ describe('FastPriorityQueue', function() {
 
     if (x.remove(1)) throw 'bug';
     checkOrderNonVolatile(x, [0, 5, 8]);
+  });
+
+  it('removeOne', function() {
+    var x = new FastPriorityQueue();
+    
+    var callback = function(val) {
+      return val === 1;
+    }
+
+    var removedItem = x.removeOne(callback);
+    if (removedItem !== undefined) throw 'bug';
+
+    x.heapify([8, 6, 7, 5, 3, 0, 9, 1, 0]);
+
+    removedItem = x.removeOne(callback);
+    if (removedItem !== 1) throw 'bug';
+    checkOrderNonVolatile(x, [0, 0, 3, 5, 6, 7, 8, 9]);
+
+    removedItem = x.removeOne(callback);
+    if (removedItem !== undefined) throw 'bug';
+    checkOrderNonVolatile(x, [0, 0, 3, 5, 6, 7, 8, 9]);
+  });  
+
+  it('removeMany', function() {
+    var x = new FastPriorityQueue();
+    x.heapify([8, 9, 9, 2, 1, 0, 4, 6, 2, 7, 6, 8, 7, 8, 0, 6, 7, 1, 6, 1, 7, 8, 3, 8, 4, 1, 2, 9, 6, 1, 8, 7, 2, 7, 7, 8, 8, 5, 8, 8]);
+
+    var callback = function(val) {
+      return val === 6;
+    }
+    var removedItems = x.removeMany(callback);
+    if (removedItems.length !== 5 || x.size !== 35) throw 'bug';
+    checkOrderNonVolatile(x, [0,0,1,1,1,1,1,2,2,2,2,3,4,4,5,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,9,9,9]);
+
+    callback = function(val) {
+      return val > 6;
+    }
+    removedItems = x.removeMany(callback);
+    if (removedItems.length !== 20 || x.size !== 15) throw 'bug';
+    checkOrderNonVolatile(x, [0,0,1,1,1,1,1,2,2,2,2,3,4,4,5]);
+
+    callback = function(val) {
+      return true;
+    }
+    removedItems = x.removeMany(callback, 10);
+    if (removedItems.length !== 10 || x.size !== 5) throw 'bug';
   });
 
   it('Random', function() {
