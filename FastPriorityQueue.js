@@ -138,21 +138,19 @@ FastPriorityQueue.prototype._removeAt = function(index) {
   return true;
 };
 
-// remove(myval[, comparator]) will remove the given item from the
-// queue, checked for equality by using compare if a new comparator isn't provided.
-// (for exmaple, if you want to remove based on a seperate key value, not necessarily priority).
+// remove(callback) will execute the callback function for each
+// item of the queue and will remove the item if the callback will return true.
 // return true if removed.
-FastPriorityQueue.prototype.remove = function(myval, comparator) {
-  if (!comparator) {
-    comparator = this.compare;
+FastPriorityQueue.prototype.remove = function(callback) {
+  if (!callback) {
+    return false;
   }
   if (this.isEmpty()) return false;
   for (var i = 0; i < this.size; i++) {
-    if (comparator(this.array[i], myval) || comparator(myval, this.array[i])) {
-      continue;
+    if (callback(this.array[i])) {
+      // items are equal, remove
+      return this._removeAt(i);
     }
-    // items are equal, remove
-    return this._removeAt(i);
   }
   return false;
 };
