@@ -153,6 +153,37 @@ describe('FastPriorityQueue', function() {
     if (removedItems.length !== 10 || x.size !== 5) throw 'bug';
   });
 
+  it('removeMany remove all - one item', function() {
+    var x = new FastPriorityQueue();
+    x.heapify([1]);
+
+    var callback = function (val) {
+      return true;
+    }
+
+    var removedItems = x.removeMany(callback);
+    if (removedItems.length !== 1 || x.size !== 0) throw 'bug';
+  });
+
+  it('removeMany remove all - more than one item', function() {
+    var x = new FastPriorityQueue();
+    x.heapify([1,2]);
+
+    var callback = function (val) {
+      return true;
+    }
+
+    var removedItems = x.removeMany(callback);
+    if (removedItems.length !== 2 || x.size !== 0) {
+      console.log('removed: ' + JSON.stringify(removedItems));
+      console.log('remaining:');
+      while (!x.isEmpty()) {
+        console.log(x.poll());
+      }
+      throw 'bug';
+    }
+  });
+
   it('Random', function() {
     for (var ti = 0; ti < 100; ti++) {
       var b = new FastPriorityQueue(function(a, b) {
