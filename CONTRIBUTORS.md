@@ -6,3 +6,5 @@
 * [Rui Araújo](https://github.com/ruiaraujo)
 * [Zach Auclair](https://github.com/blaskovicz)
 * [Kaisle](https://github.com/Kaisle)
+* [Moshe Shababo](https://github.com/moshababo)
+* [Daniel McNally](https://github.com/sangaman)

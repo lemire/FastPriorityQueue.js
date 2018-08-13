@@ -8,12 +8,13 @@
     "priority queue",
     "performance"
   ],
-  "version": "0.5.0",
+  "version": "0.6.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lemire/FastPriorityQueue.js.git"
   },
   "main": "FastPriorityQueue.js",
+  "types": "FastPriorityQueue.d.ts",
   "scripts": {
     "test": "mocha unit/basictests.js"
   },
