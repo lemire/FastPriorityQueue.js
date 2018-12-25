@@ -1,6 +1,6 @@
 declare class FastPriorityQueue<T> {
   /** The provided comparator function should take a, b and return *true* when a < b. */
-  constructor(comparator: (a: T, b: T) => boolean);
+  constructor(comparator?: (a: T, b: T) => boolean);
   /** Add an element into the queue. Runs in O(log n) time. */
   add: (value: T) => void;
   /** Copy the priority queue into another, and return it. Queue items are shallow-copied. Runs in `O(n)` time. */
@@ -19,7 +19,7 @@ declare class FastPriorityQueue<T> {
   remove: (value: T) => boolean;
   /** Remove the first item for which the callback will return true. Return the removed item, or undefined if nothing is removed. */
   removeMany: (callback: (a: T) => boolean, limit?: number) => T[];
-  /** 
+  /**
    * Remove each item for which the callback returns true, up to a max limit of removed items if specified or no limit if unspecified.
    * Return an array containing the removed items.
    */
@@ -30,6 +30,6 @@ declare class FastPriorityQueue<T> {
   size: number;
   /** Recover unused memory (for long-running priority queues). */
   trim: () => void;
-  }
+}
 
-  export default FastPriorityQueue;
+export default FastPriorityQueue;
