@@ -30,6 +30,8 @@ declare class FastPriorityQueue<T> {
   size: number;
   /** Recover unused memory (for long-running priority queues). */
   trim: () => void;
+  /** return the k 'smallest' elements of the queue */
+  kSmallest: (k: number) => T[];
 }
 
 export default FastPriorityQueue;
