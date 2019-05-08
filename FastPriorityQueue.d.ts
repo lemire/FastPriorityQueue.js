@@ -34,4 +34,4 @@ declare class FastPriorityQueue<T> {
   kSmallest: (k: number) => T[];
 }
 
-export default FastPriorityQueue;
+export = FastPriorityQueue;
