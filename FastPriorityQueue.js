@@ -295,24 +295,4 @@ FastPriorityQueue.prototype.kSmallest = function(k) {
   return smallest;
 }
 
-// just for illustration purposes
-var main = function() {
-  // main code
-  var x = new FastPriorityQueue(function(a, b) {
-    return a < b;
-  });
-  x.add(1);
-  x.add(0);
-  x.add(5);
-  x.add(4);
-  x.add(3);
-  while (!x.isEmpty()) {
-    console.log(x.poll());
-  }
-};
-
-if (require.main === module) {
-  main();
-}
-
 module.exports = FastPriorityQueue;
