@@ -268,11 +268,9 @@ FastPriorityQueue.prototype.forEach = function(callback) {
   }
 };
 
-// return the k 'smallest' elements of the queue
-// runs in O(k log k) time
-// this is the equivalent of repeatedly calling poll, but
-// it has a better computational complexity, which can be
-// important for large data sets.
+// return the k 'smallest' elements of the queue as an array,
+// runs in O(k log k) time, the elements are not removed
+// from the priority queue.
 FastPriorityQueue.prototype.kSmallest = function(k) {
   if (this.size == 0) return [];
   var comparator = this.compare;
