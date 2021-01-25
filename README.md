@@ -131,6 +131,40 @@ yabh x 10,472 ops/sec ±1.50% (93 runs sampled)
 Fastest is FastPriorityQueue
 ```
 
+Benchmarks on an Apple M1:
+```
+Platform: darwin 20.2.0 arm64
+Apple M1
+Node version 15.6.0, v8 version 8.6.395.17-node.23
+
+Comparing against:
+js-priority-queue: https://github.com/adamhooper/js-priority-queue 0.1.5
+stablepriorityqueue: https://github.com/lemire/StablePriorityQueue.js 0.1.2
+heap.js: https://github.com/qiao/heap.js 0.2.6
+binaryheapx: https://github.com/xudafeng/BinaryHeap 0.1.1
+priority_queue: https://github.com/agnat/js_priority_queue 0.1.3
+js-heap: https://github.com/thauburger/js-heap 0.3.1
+queue-priority: https://github.com/augustohp/Priority-Queue-NodeJS 1.0.0
+priorityqueuejs: https://github.com/janogonzalez/priorityqueuejs 2.0.0
+qheap: https://github.com/andrasq/node-qheap 1.4.0
+yabh: https://github.com/jmdobry/yabh 1.2.0
+
+starting dynamic queue/enqueue benchmark
+FastPriorityQueue x 47,894 ops/sec ±0.19% (100 runs sampled)
+FastPriorityQueue---replaceTop x 187,809 ops/sec ±0.09% (97 runs sampled)
+sort x 9,285 ops/sec ±0.10% (100 runs sampled)
+StablePriorityQueue x 19,830 ops/sec ±0.49% (97 runs sampled)
+js-priority-queue x 28,382 ops/sec ±0.10% (98 runs sampled)
+heap.js x 5,504 ops/sec ±0.22% (100 runs sampled)
+binaryheapx x 10,473 ops/sec ±0.11% (98 runs sampled)
+priority_queue x 9,041 ops/sec ±0.33% (97 runs sampled)
+js-heap x 390 ops/sec ±0.04% (96 runs sampled)
+queue-priority x 438 ops/sec ±0.09% (95 runs sampled)
+priorityqueuejs x 14,797 ops/sec ±0.07% (101 runs sampled)
+qheap x 38,108 ops/sec ±0.12% (99 runs sampled)
+yabh x 14,942 ops/sec ±0.24% (99 runs sampled)
+```
+
 Note that `qheap` has been updated following the introduction of `FastPriorityQueue`, with a reference to `FastPriorityQueue` which might explains the fact that its performance is comparable to `FastPriorityQueue`.
 
 # Insertion order
