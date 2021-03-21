@@ -26,5 +26,8 @@
   "devDependencies": {
     "mocha": "^5.2.0"
   },
-  "author": "Daniel Lemire <lemire@gmail.com> (http://lemire.me/en/)"
+  "author": "Daniel Lemire <lemire@gmail.com> (http://lemire.me/en/)",
+  "dependencies": {
+    "minimist": "^1.2.5"
+  }
 }
