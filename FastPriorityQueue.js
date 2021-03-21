@@ -44,9 +44,7 @@ function FastPriorityQueue(comparator) {
 FastPriorityQueue.prototype.clone = function() {
   var fpq = new FastPriorityQueue(this.compare);
   fpq.size = this.size;
-  for (var i = 0; i < this.size; i++) {
-    fpq.array.push(this.array[i]);
-  }
+  fpq.array = this.array.slice(0, this.size);
   return fpq;
 };
 
@@ -273,22 +271,15 @@ FastPriorityQueue.prototype.forEach = function(callback) {
 // from the priority queue.
 FastPriorityQueue.prototype.kSmallest = function(k) {
   if (this.size == 0) return [];
-  var comparator = this.compare;
-  var arr = this.array
-  var fpq = new FastPriorityQueue(function(a,b){
-   return comparator(arr[a],arr[b]);
-  });
   k = Math.min(this.size, k);
+  var fpq = new FastPriorityQueue(this.compare);
+  const newSize = Math.min((k > 0 ? Math.pow(2, k - 1) : 0) + 1, this.size);
+  fpq.size = newSize;
+  fpq.array = this.array.slice(0, newSize);
+
   var smallest = new Array(k);
-  var j = 0;
-  fpq.add(0);
-  while (j < k) {
-    var small = fpq.poll();
-    smallest[j++] = this.array[small];
-    var l = (small << 1) + 1;
-    var r = l + 1;
-    if (l < this.size) fpq.add(l);
-    if (r < this.size) fpq.add(r);
+  for (var i = 0; i < k; i++) {
+    smallest[i] = fpq.poll();
   }
   return smallest;
 }
