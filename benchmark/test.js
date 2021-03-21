@@ -91,6 +91,16 @@ function QueueEnqueueBench(blocks) {
       }
       return b;
     })
+    .add('FastPriorityQueue--queue-and-kSmallest', function() {
+      var b = new FastPriorityQueue(defaultcomparator);
+      for (var i = 0 ; i < 1280  ; i++) {
+        b.add(rand(i));
+      }
+      for (i = 128 ; i < 128 * blocks  ; i++) {
+        b.kSmallest(i % 1300)
+      }
+      return b;
+    })
      .add('sort', function() {
       var a = new Array();
       for (var i = 0 ; i < 128 * (blocks + 1)  ; i++) {
