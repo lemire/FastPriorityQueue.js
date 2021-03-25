@@ -187,6 +187,7 @@ FastPriorityQueue.prototype.removeOne = function(callback) {
 // the queue and will remove each item for which the callback returns true, up to
 // a max limit of removed items if specified or no limit if unspecified.
 // return an array containing the removed items.
+// The callback function should be a pure function.
 FastPriorityQueue.prototype.removeMany = function(callback, limit) {
   return this._batchRemove(callback, limit);
 };
