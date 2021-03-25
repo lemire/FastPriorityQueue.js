@@ -12,13 +12,6 @@ describe('FastPriorityQueue', function() {
   }
 
   function checkOrderNonVolatile(x, iterOrder) {
-    // TODO once we trasnpile
-    //if (!Symbol || !Symbol.iterator) return;
-    // let i = 0;
-    // for (let next of x) {
-    //   var item = iterOrder[i++];
-    //   if (next !== item) throw 'expected=' + item + ', got=' + next;
-    // }
     var j = 0;
     x.forEach(function(next, i) {
       j++;
@@ -252,6 +245,24 @@ describe('FastPriorityQueue', function() {
         });
       }
     }
+  });
+
+  it('issue30', function() {
+      var b = new FastPriorityQueue(function(a, b) {
+        return a < b;
+      });
+      b.add(1);
+      b.add(1);
+      b.add(2);
+      b.add(7);
+      b.add(4);
+      b.add(2);
+      b.add(3);
+      var smallerthan3 = b.removeMany(val => val <= 3, 5)
+      if(smallerthan3.length !== 5) {
+        console.log("values returned "+smallerthan3.length);
+        throw 'bug';
+      }
   });
 
   it('should return k smallest', function() {
