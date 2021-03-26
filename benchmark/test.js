@@ -101,6 +101,19 @@ function QueueEnqueueBench(blocks) {
       }
       return b;
     })
+    .add('FastPriorityQueue--queue-and-removeMany', function() {
+      var b = new FastPriorityQueue(defaultcomparator);
+      for (var i = 0 ; i < 1280  ; i++) {
+        b.add(rand(i));
+      }
+      for (i = 0 ; i < 1300 ; i++) {
+        var f = b.clone();
+        f.removeMany(z => z > i, blocks * 30)
+        var y = b.clone();
+        y.removeMany(z => z < i, blocks * 30)
+      }
+      return b;
+    })
      .add('sort', function() {
       var a = new Array();
       for (var i = 0 ; i < 128 * (blocks + 1)  ; i++) {

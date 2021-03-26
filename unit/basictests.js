@@ -177,6 +177,50 @@ describe('FastPriorityQueue', function() {
     }
   });
 
+  it('removeMany remove some - check all items', function() {
+    var saw2 = false;
+    var removed2 = false;
+
+    var array = [1,1,2,7,4,2,3].map(v => {
+      const baseObj = {
+        priority: v
+      };
+      if (v === 3) {
+        baseObj.removeCriterion = true;
+      } else if (removed2 || v !== 2) {
+        baseObj.removeCriterion = false;
+      } else if (!saw2) {
+        saw2 = true;
+        baseObj.removeCriterion = false;
+      } else {
+        removed2 = true;
+        baseObj.removeCriterion = true;
+      }
+      return baseObj;
+    });
+
+    var x = new FastPriorityQueue((a,b) => a.priority < b.priority);
+    x.heapify(array);
+
+    var callback = function (val) {
+      return val.removeCriterion === true;
+    }
+
+    var removedItems = x.removeMany(callback);
+    if (
+      removedItems.length !== 2 ||
+      x.size !== 5 ||
+      x.array.slice(0, x.size).some(item => item.removeCriterion)
+      ) {
+      console.log('removed: ' + JSON.stringify(removedItems));
+      console.log('remaining:');
+      while (!x.isEmpty()) {
+        console.log(x.poll());
+      }
+      throw 'bug';
+    }
+  });
+
   it('Random', function() {
     for (var ti = 0; ti < 100; ti++) {
       var b = new FastPriorityQueue(function(a, b) {

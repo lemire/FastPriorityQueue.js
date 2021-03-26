@@ -151,36 +151,18 @@ FastPriorityQueue.prototype.remove = function(myval) {
   return false;
 };
 
-// internal
-// removes and returns items for which the callback returns true.
-FastPriorityQueue.prototype._batchRemove = function(callback, limit) {
-  // initialize return array with max size of the limit or current queue size
-  var retArr = new Array(limit ? limit : this.size);
-  var count = 0;
-
-  if (typeof callback === 'function' && this.size) {
-    var i = 0;
-    while (i < this.size && count < retArr.length) {
-      if (callback(this.array[i])) {
-        retArr[count] = this._removeAt(i);
-        count++;
-        // move up a level in the heap if we remove an item
-        i = i >> 1;
-      } else {
-        i++;
-      }
-    } 
-  }
-  retArr.length = count;
-  return retArr;
-}
-
 // removeOne(callback) will execute the callback function for each item of the queue
 // and will remove the first item for which the callback will return true.
 // return the removed item, or undefined if nothing is removed.
 FastPriorityQueue.prototype.removeOne = function(callback) {
-  var arr = this._batchRemove(callback, 1);
-  return arr.length > 0 ? arr[0] : undefined;
+  if (typeof callback !== "function") {
+    return undefined;
+  }
+  for (var i = 0; i < this.size; i++) {
+    if (callback(this.array[i])) {
+      return this._removeAt(i);
+    }
+  }
 };
 
 // remove(callback[, limit]) will execute the callback function for each item of
@@ -189,7 +171,39 @@ FastPriorityQueue.prototype.removeOne = function(callback) {
 // return an array containing the removed items.
 // The callback function should be a pure function.
 FastPriorityQueue.prototype.removeMany = function(callback, limit) {
-  return this._batchRemove(callback, limit);
+  // Skip unnecessary processing for edge cases
+  if (typeof callback !== "function" || this.size < 1) {
+    return [];
+  }
+  limit = limit ? Math.min(limit, this.size) : this.size;
+
+  // Prepare the results container to hold up to the results limit
+  var resultSize = 0;
+  var result = new Array(limit);
+
+  // Prepare a temporary array to hold items we'll traverse through and need to keep
+  var tmpSize = 0;
+  var tmp = new Array(this.size);
+
+  while (resultSize < limit && !this.isEmpty()) {
+    // Dequeue items into either the results or our temporary array
+    var item = this.poll();
+    if (callback(item)) {
+      result[resultSize++] = item;
+    } else {
+      tmp[tmpSize++] = item;
+    }
+  }
+  // Update the result array with the exact number of results
+  result.length = resultSize;
+
+  // Re-add all the items we can keep
+  var i = 0;
+  while (i < tmpSize) {
+    this.add(tmp[i++]);
+  }
+
+  return result;
 };
 
 // Look at the top of the queue (one of the smallest elements) without removing it
