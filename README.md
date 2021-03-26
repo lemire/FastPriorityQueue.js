@@ -63,8 +63,8 @@ Instance methods summary:
 * `add(value)`: add an element into the queue; runs in `O(log n)` time.
 * `poll()`: remove and return the element on top of the heap (smallest element); runs in `O(log n)` time. If the priority queue is empty, the function returns `undefined`.
 * `remove(value)`: remove an element matching the provided value, if found, from the queue. The item is matched by using the queue's comparator. Returns `true` if the element is removed, `false` otherwise.
-* `removeOne(callback)`: execute the callback function for each item of the queue and remove the first item for which the callback will return true. Returns the removed item, or `undefined` if nothing is removed.
-* `removeMany(callback[, limit])`: execute the callback function for each item of the queue and remove each item for which the callback will return true, up to a max limit of removed items if specified or no limit if unspecified. Returns an array containing the removed items.
+* `removeOne(callback)`: execute the callback function for each item of the queue and remove the first item for which the callback will return true. Returns the removed item, or `undefined` if nothing is removed. The callback must be a pure function.
+* `removeMany(callback[, limit])`: execute the callback function for each item of the queue and remove each item for which the callback will return true, up to a max limit of removed items if specified or no limit if unspecified. Returns an array containing the removed items. The callback must be a pure function.
 * `replaceTop(value)`: `poll()` and `add(value)` in one operation. This is useful for [fast, top-k queries](http://lemire.me/blog/2017/06/21/top-speed-for-top-k-queries/). Returns the removed element or `undefined`, similar to `poll()`.
 * `heapify(array)`: replace the content of the heap with the provided array, then order it based on the comparator.
 * `peek()`: return the top of the queue (smallest element) without removal, or `undefined` if the queue is empty; runs in `O(1)` time.
