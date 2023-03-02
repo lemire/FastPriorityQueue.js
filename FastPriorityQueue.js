@@ -287,13 +287,22 @@ FastPriorityQueue.prototype.forEach = function(callback) {
 FastPriorityQueue.prototype.kSmallest = function(k) {
   if (this.size == 0) return [];
   k = Math.min(this.size, k);
-  var fpq = new FastPriorityQueue(this.compare);
-  const newSize = Math.min((k > 0 ? Math.pow(2, k - 1) : 0) + 1, this.size);
+  const newSize = Math.min(this.size, (1 << (k - 1)) + 1);
+  if (newSize < 2) {
+    if (newSize < 1)  {
+      return [];
+    } else if (k > 0) {
+      return [this.peek()];
+    }
+  }
+  if (k < 1) return [];
+
+  const fpq = new FastPriorityQueue(this.compare);
   fpq.size = newSize;
   fpq.array = this.array.slice(0, newSize);
 
-  var smallest = new Array(k);
-  for (var i = 0; i < k; i++) {
+  const smallest = new Array(k);
+  for (let i = 0; i < k; i++) {
     smallest[i] = fpq.poll();
   }
   return smallest;
