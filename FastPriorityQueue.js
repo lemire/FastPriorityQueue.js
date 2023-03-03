@@ -285,17 +285,10 @@ FastPriorityQueue.prototype.forEach = function(callback) {
 // runs in O(k log k) time, the elements are not removed
 // from the priority queue.
 FastPriorityQueue.prototype.kSmallest = function(k) {
-  if (this.size == 0) return [];
+  if ((this.size == 0) || (k<=0)) return [];
   k = Math.min(this.size, k);
   const newSize = Math.min(this.size, (1 << (k - 1)) + 1);
-  if (newSize < 2) {
-    if (newSize < 1)  {
-      return [];
-    } else if (k > 0) {
-      return [this.peek()];
-    }
-  }
-  if (k < 1) return [];
+  if (newSize < 2) { return [this.peek()] }
 
   const fpq = new FastPriorityQueue(this.compare);
   fpq.size = newSize;
