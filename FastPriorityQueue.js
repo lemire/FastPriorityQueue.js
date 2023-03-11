@@ -287,7 +287,7 @@ FastPriorityQueue.prototype.forEach = function(callback) {
 FastPriorityQueue.prototype.kSmallest = function(k) {
   if ((this.size == 0) || (k<=0)) return [];
   k = Math.min(this.size, k);
-  const newSize = Math.min(this.size, (1 << (k - 1)) + 1);
+  const newSize = Math.min(this.size, (2 ** (k - 1)) + 1);
   if (newSize < 2) { return [this.peek()] }
 
   const fpq = new FastPriorityQueue(this.compare);
