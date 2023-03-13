@@ -341,4 +341,18 @@ describe('FastPriorityQueue', function() {
       if (x.poll() != item) throw 'bug';
     }
   });
+
+  it('should return k smallest with large k', function() {
+    // ascending
+    var x = new FastPriorityQueue(function(a, b) {
+      return a < b;
+    });
+    const largeK = 64;
+    const items = Array.from({ length: largeK }, (_, k) => k);
+    items.forEach((item) => x.add(item));
+
+    items.forEach((_,i) => {
+      if (JSON.stringify(x.kSmallest(i + 1)) !== JSON.stringify(items.slice(0, i+1))) throw 'bug';
+    });
+  });
 });
