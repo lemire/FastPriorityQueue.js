@@ -1,6 +1,5 @@
 # FastPriorityQueue.js : a fast, heap-based priority queue in JavaScript
 
-[![Build Status](https://travis-ci.org/lemire/FastPriorityQueue.js.png)](https://travis-ci.org/lemire/FastPriorityQueue.js)
 
 In a priority queue, you can...
 
