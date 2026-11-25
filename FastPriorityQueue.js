@@ -172,7 +172,7 @@ FastPriorityQueue.prototype.removeOne = function(callback) {
 // The callback function should be a pure function.
 FastPriorityQueue.prototype.removeMany = function(callback, limit) {
   // Skip unnecessary processing for edge cases
-  if (typeof callback !== "function" || this.size < 1) {
+  if (typeof callback !== "function" || this.size < 1 || limit === 0) {
     return [];
   }
   limit = limit ? Math.min(limit, this.size) : this.size;
