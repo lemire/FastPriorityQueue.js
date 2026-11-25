@@ -146,6 +146,22 @@ describe('FastPriorityQueue', function() {
     if (removedItems.length !== 10 || x.size !== 5) throw 'bug';
   });
 
+  [0, -0].forEach(function(limit, index) {
+    it('removeMany with a ' + (index === 0 ? 'zero' : 'negative zero') + ' limit', function() {
+      var x = new FastPriorityQueue();
+      x.heapify([3, 1, 2]);
+      var calls = 0;
+
+      var removedItems = x.removeMany(function() {
+        calls++;
+        return true;
+      }, limit);
+
+      if (removedItems.length !== 0 || x.size !== 3 || calls !== 0) throw 'bug';
+      checkOrderNonVolatile(x, [1, 2, 3]);
+    });
+  });
+
   it('removeMany remove all - one item', function() {
     var x = new FastPriorityQueue();
     x.heapify([1]);
